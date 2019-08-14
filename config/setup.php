@@ -8,9 +8,9 @@ try {
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sql = "CREATE DATABASE `".$DB_NAME."`";
   $dbh->exec($sql);
-  echo "Database created successfully\n";
+  echo "Database created successfully<br>";
   } catch (PDOException $e) {
-    echo "ERROR CREATING DB: \n".$e->getMessage()."\nAborting process\n";
+    echo "ERROR CREATING DB: \n".$e->getMessage()."\nAborting process<br>";
     // die();
   }
   // CREATE TABLES
@@ -22,39 +22,39 @@ try {
         `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `username` VARCHAR(50) NOT NULL,
         `email` VARCHAR(100) NOT NULL,
-        `password` VARCHAR(255) NOT NULL,
+        `password` VARCHAR(255) NOT NULL
         -- `token` VARCHAR(50) NOT NULL,
         -- `verified` VARCHAR(1) NOT NULL DEFAULT 'N'
       )";
   $dbh->exec($sql);
-  echo "USERS table created !\n";
+  echo "USERS table created !<br>";
   $sql = null;
   $sql = "CREATE TABLE `posts` (
         `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `username` VARCHAR(50) NOT NULL,
-        `picture` VARCHAR(255) NOT NULL,
+        `picture` VARCHAR(255) NOT NULL
       )";
   $dbh->exec($sql);
-  echo "PICTURES table created !\n";
+  echo "PICTURES table created !<br>";
   $sql = null;
   $sql = "CREATE TABLE `comments` (
         `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `username` VARCHAR(50) NOT NULL,
         `picture_id` VARCHAR(255) NOT NULL,
-        `comment` VARCHAR(255) NOT NULL,
+        `comment` VARCHAR(255) NOT NULL
       )";
   $dbh->exec($sql);
-  echo "COMMENTS table created !\n";
+  echo "COMMENTS table created !<br>";
   $sql = null;
   $sql = "CREATE TABLE `likes` (
         `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         `username` VARCHAR(50) NOT NULL,
-        `picture_id` VARCHAR(255) NOT NULL,
+        `picture_id` VARCHAR(255) NOT NULL
       )";
   $dbh->exec($sql);
-  echo "COMMENTS table created !\n";
+  echo "COMMENTS table created !<br>";
   $sql = null;
   } catch (PDOException $e) {
-    echo "ERROR CREATING TABLES :".$e->getMessage()."\n";
+    echo "ERROR CREATING TABLES :".$e->getMessage()."<br>";
   }
 ?>
