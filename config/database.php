@@ -2,6 +2,6 @@
 $DB_NAME = "cam42";
 $DB_DSN = "mysql:host=127.0.0.1;dbname=".$DB_NAME;
 $DB_USER = "root";
-$HOST = "127.0.0.1";
 $DB_PASSWORD = "tiger";
+$HOST = "127.0.0.1";
 ?>
