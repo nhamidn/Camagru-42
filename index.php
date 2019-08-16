@@ -1,7 +1,11 @@
 <?php
 	session_start();
+	if(session_status() == PHP_SESSION_ACTIVE)
+    session_regenerate_id();
+	// session_regenerate_id();
 	$_SESSION[page] = "public";
-	$_SESSION[username] = "nhamid";
+	// $_SESSION[username] = null;
+	// echo session_id();
 	// if (empty($_SESSION[username]))
 	// 	header('Location: /login.php');
 	// include_once "views/header.php";

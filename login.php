@@ -1,5 +1,7 @@
 <?php
 	session_start();
+	if(session_status() == PHP_SESSION_ACTIVE)
+		session_regenerate_id();
   $_SESSION[page] = "login";
   	// include_once "views/header.php";
 ?>
