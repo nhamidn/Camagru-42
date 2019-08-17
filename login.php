@@ -21,7 +21,6 @@
   min-height: 100%;
 }
 			body {
-				margin-bottom: 60px;
 				margin: 0;
 				height: 100%;
 			}
