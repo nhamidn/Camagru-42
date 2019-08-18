@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	if(session_status() == PHP_SESSION_ACTIVE)
-		session_regenerate_id();
+	// if(session_status() == PHP_SESSION_ACTIVE)
+	// 	session_regenerate_id();
   $_SESSION[page] = "register";
   	// include_once "views/header.php";
 ?>
@@ -47,19 +47,19 @@
 		 	<form action="/control/register.php" method="post">
 			 	<div class="form-group">
 				 	<label for="InputUname">Username</label>
-				 	<input type="text" class="form-control" name="runame" id="exampleInputEmail1" placeholder="Enter Username" required>
+				 	<input type="text" class="form-control" name="runame" id="exampleInputUserName" placeholder="Enter Username" required>
 			 	</div>
 				<div class="form-group">
 				 	<label for="InputEmail">Email address</label>
-				 	<input type="email" class="form-control" name="remail" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" required>
+				 	<input type="email" class="form-control" name="remail" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email" required>
 			 	</div>
 			 	<div class="form-group">
 				 	<label for="InputPassword">Password</label>
-				 	<input type="password" class="form-control" name="rpass" id="exampleInputPassword1" placeholder="Password" required>
+				 	<input type="password" class="form-control" name="rpass" id="exampleInputPassword" placeholder="Password" required>
 			 	</div>
 				<div class="form-group">
 					<label for="InputPassword">Retype Password</label>
-					<input type="password" class="form-control" name="rpass2" id="exampleInputPassword1" placeholder="Password" required>
+					<input type="password" class="form-control" name="rpass2" id="exampleInputPassword2" placeholder="Password" required>
 				</div>
 			 	<button type="submit" class="btn btn-warning" style="color: white">Register</button>
 		 	</form>
