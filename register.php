@@ -36,15 +36,12 @@
 		}
 		</style>
   </head>
-
-
   <body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
 		<div class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
 				<?php if ($_GET[error]) echo $_GET[error]; ?>
 		</div>
 		<div id="page-content">
-			<?php //if ($_GET[error]) echo $_GET[error]; ?>
 			<div id="justify">
 			<div class="card card-body col-md-6 mb-4 bg-light" >
 		 	<form action="/control/register.php" method="post">
