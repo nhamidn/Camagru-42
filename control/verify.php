@@ -35,6 +35,7 @@
           $query->bindParam(':verify', $var, PDO::PARAM_STR);
           $query->bindParam(':notoken', $null, PDO::PARAM_STR);
           $query->execute();
+          header("Location: ../login.php?status=Account verified you can login now !");
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
           exit;
