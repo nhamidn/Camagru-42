@@ -47,24 +47,9 @@ else {
         }
       }
       $usern = $_POST["runame"];
-      echo $usern;
-      ?>
-      <br>
-      <?php
-      echo $mail;
-      ?>
-      <br>
-      <?php
-      // $pass = $_POST["rpass"];
       $pass = hash(Whirlpool, $_POST["rpass"]);
       // $token = bin2hex(openssl_random_pseudo_bytes(24));
       $token = uniqid($usern, true);
-      echo $token;
-      echo "  -------------  ";
-      echo $pass;
-      ?>
-      <br>
-      <?php
       try {
         $query = $dbh->prepare("INSERT INTO users (username, email, password, token) VALUES (:runame, :rmail, :rpassword, :rtoken)");
         $query->bindParam(':runame', $usern, PDO::PARAM_STR);
@@ -80,16 +65,12 @@ else {
 
       $subject = "CAMAGRU mail verification";
       $headers = 'From: <nhamid@student.1337.ma>';
-
       $message = 'Hello ' . $usern . ', to activate your account click this link : http://localhost/control/verify.php?token=' . $token . '.';
-    if (mail($_POST["remail"], $subject, $message, $headers)) {
-      header("Location: ../login.php?status=Account created, please activate it using the link sent to your email !");
-    } else {
-      header("Location: ../login.php?status=Error sending verification mail !");
-    }
-      //------------------------------------------------------------------------
-
-      echo 'Secure enough';
+      if (mail($_POST["remail"], $subject, $message, $headers)) {
+        header("Location: ../login.php?status=Account created, please activate it using the link sent to your email !");
+      } else {
+        header("Location: ../login.php?status=Error sending verification mail !");
+      }
     }
   }
 }

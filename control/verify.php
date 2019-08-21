@@ -40,7 +40,7 @@
           exit;
         }
       } else {
-        header("Location: ../register.php?error=Page not found, or link expired !");
+        header("Location: ../register.php?error=Page not found !");
       }
     } else {
       header("Location: ../register.php?error=Page not found, or link expired !");
