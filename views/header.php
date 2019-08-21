@@ -50,7 +50,7 @@ else if (!empty($_SESSION[username]))
         <?php echo '<a class="nav-link" href="#">Camera</a>';?>
       </li>
       <li class="nav-item active">
-        <?php echo '<a class="nav-link" href="#">Explorer</a>';?>
+        <?php echo '<a class="nav-link" href="../index.php">Explorer</a>';?>
       </li>
       <!-- <form class='nav-item active' action='user/ft_disconnect.php' method='post'>
            <?php //echo '<a type='submit' class="nav-link" href="#">Disconnect</a>';?>

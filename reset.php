@@ -2,7 +2,9 @@
 	session_start();
 	// if(session_status() == PHP_SESSION_ACTIVE)
 	// 	session_regenerate_id();
-  $_SESSION[page] = "login";
+  $_SESSION[page] = "reset";
+  if (!empty($_SESSION[username]))
+    header("Location: ./index.php");
   	// include_once "views/header.php";
 ?>
 <!DOCTYPE html>
@@ -47,18 +49,13 @@
 			<div id="justify">
 			<div class="card card-body col-md-6 mb-4 bg-light" >
 		 	<form action="/control/login.php" method="post">
-				<div class="form-group">
-				 	<label for="InputUname">Username</label>
-				 	<input type="text" class="form-control" name="luname" id="exampleInputEmail1" placeholder="Enter Username" required>
-			 	</div>
-			 	<div class="form-group">
-				 	<label for="InputPassword">Password</label>
-				 	<input type="password" class="form-control" name="lpass" id="exampleInputPassword1" placeholder="Password" required>
-			 	</div>
-			 	<button type="submit" class="btn btn-warning" style="color: white">Log in</button>
+        <div class="form-group">
+          <label for="InputEmail">Please enter your email address :</label>
+          <input type="email" class="form-control" name="remail" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email" required>
+        </div>
+			 	<button type="submit" class="btn btn-warning" style="color: white">Reset Password</button>
 		 	</form>
 			<br>
-			<medium>Forgot password ? <a href="./reset.php">Reset it</a></medium>
 			</div>
 		</div>
 		</div>
