@@ -20,9 +20,21 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		<title>Camagru</title>
+		<style media="screen">
+		html, body {
+			margin: 0;
+			height: 100%;
+		}
+		#page-content {
+		flex: 1 0 auto;
+		}
+		</style>
 	</head>
-	<body>
+	<body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
+		<div id="page-content">
 
+		</div>
+		<?php include_once "views/footer.php"; ?>
 	</body>
 </html>

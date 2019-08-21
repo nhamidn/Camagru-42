@@ -40,6 +40,9 @@
 
   <body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
+		<div class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
+					<?php if ($_GET[status]) echo $_GET[status]; ?>
+		</div>
 		<div id="page-content">
 			<div id="justify">
 			<div class="card card-body col-md-6 mb-4 bg-light" >
