@@ -1,7 +1,9 @@
 <?php
 session_start();
-if(session_status() == PHP_SESSION_ACTIVE)
-  session_regenerate_id();
+// if(session_status() == PHP_SESSION_ACTIVE)
+//   session_regenerate_id();
+if (empty($_SESSION[username]))
+  header("Location: ../login.php?status=Please login to access this page");
 $_SESSION[page] = "profile";
 ?>
 <!DOCTYPE html>
