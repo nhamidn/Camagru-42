@@ -5,7 +5,6 @@
   $_SESSION[page] = "reset";
   if (!empty($_SESSION[username]))
     header("Location: ./index.php");
-  	// include_once "views/header.php";
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

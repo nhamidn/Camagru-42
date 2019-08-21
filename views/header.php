@@ -12,7 +12,7 @@
   <script type="text/javascript "src="js\button.js"></script>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-      <?php if ($_SESSION[page] === "public") { ?>
+      <?php if ($_SESSION[page] === "public" || $_SESSION[page] === "reset") { ?>
         <li class="nav-item active">
           <?php echo '<a class="nav-link" href="/register.php">Register</a>';?>
         </li>
