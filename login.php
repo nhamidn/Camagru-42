@@ -46,14 +46,14 @@
 		<div id="page-content">
 			<div id="justify">
 			<div class="card card-body col-md-6 mb-4 bg-light" >
-		 	<form>
+		 	<form action="/control/login.php" method="post">
 				<div class="form-group">
 				 	<label for="InputUname">Username</label>
-				 	<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Username" required>
+				 	<input type="text" class="form-control" name="luname" id="exampleInputEmail1" placeholder="Enter Username" required>
 			 	</div>
 			 	<div class="form-group">
 				 	<label for="InputPassword">Password</label>
-				 	<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+				 	<input type="password" class="form-control" name="lpass" id="exampleInputPassword1" placeholder="Password" required>
 			 	</div>
 			 	<button type="submit" class="btn btn-warning" style="color: white">Log in</button>
 		 	</form>
