@@ -47,7 +47,7 @@
 		<div id="page-content">
 			<div id="justify">
 			<div class="card card-body col-md-6 mb-4 bg-light" >
-		 	<form action="/control/login.php" method="post">
+		 	<form action="/control/reset.php" method="post">
         <div class="form-group">
           <label for="InputEmail">Please enter your email address :</label>
           <input type="email" class="form-control" name="remail" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email" required>
