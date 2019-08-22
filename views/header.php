@@ -33,7 +33,7 @@
 else if (!empty($_SESSION[username]))
 {
 ?>
-<header>
+<header class="card">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="http://localhost/">Camagru</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation" onclick="toggle_btn()">
