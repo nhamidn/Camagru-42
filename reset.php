@@ -37,12 +37,10 @@
 		}
 		</style>
   </head>
-
-
   <body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
 		<div class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
-					<?php if ($_GET[status]) echo $_GET[status]; ?>
+					<?php if ($_GET[error]) echo $_GET[error]; ?>
 		</div>
 		<div id="page-content">
 			<div id="justify">
@@ -50,7 +48,7 @@
 		 	<form action="/control/reset.php" method="post">
         <div class="form-group">
           <label for="InputEmail">Please enter your email address :</label>
-          <input type="email" class="form-control" name="remail" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email" required>
+          <input type="email" class="form-control" name="eemail" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email" required>
         </div>
 			 	<button type="submit" class="btn btn-warning" style="color: white">Reset Password</button>
 		 	</form>
