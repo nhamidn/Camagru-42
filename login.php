@@ -42,7 +42,7 @@
 
   <body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
-		<div class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
+		<div id="errtext" class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
 					<?php if ($_GET[status]) echo $_GET[status]; ?>
 		</div>
 		<div id="page-content">
@@ -66,6 +66,7 @@
 				  xhttp.onreadystatechange = function() {
 				    if (this.readyState == 4 && this.status == 200) {
 							elem = document.getElementById("justify").innerHTML;
+							document.getElementById("errtext").innerHTML = "";
 				      document.getElementById("justify").innerHTML = this.responseText;
 				      }
 				  };
@@ -73,6 +74,7 @@
 				  xhttp.send();
 				}
 				function login() {
+					document.getElementById("errtext").innerHTML = "";
 					document.getElementById("justify").innerHTML = elem;
 				}
 				</script>
