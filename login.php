@@ -58,6 +58,20 @@
 				 	<input type="password" class="form-control" name="lpass" id="exampleInputPassword1" placeholder="Password" required>
 			 	</div>
 			 	<button type="submit" class="btn btn-warning" style="color: white">Log in</button>
+				<button type="button" class="btn btn-danger" onclick="recover()" style="color: white">Reset your password</button>
+				<script>
+				function recover() {
+				  var xhttp = new XMLHttpRequest();
+				  xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+				      document.getElementById("justify").innerHTML =
+				      this.responseText;
+				      }
+				  };
+				  xhttp.open("GET", "./reset.php", true);
+				  xhttp.send();
+				}
+				</script>
 		 	</form>
 			<br>
 			<medium>Forgot password ? <a href="./reset.php">Reset it</a></medium>

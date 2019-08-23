@@ -11,7 +11,7 @@
       $query->execute();
     } catch (PDOException $e) {
       echo 'Error: '.$e->getMessage();
-      exit;
+      exit();
     }
     if ($query->fetchColumn()) {
       try {
@@ -24,7 +24,7 @@
         $verified = $data['verified'];
       } catch (PDOException $e) {
         echo 'Error: '.$e->getMessage();
-        exit;
+        exit();
       }
       if ($verified == "N") {
         $var = 'Y';
@@ -38,10 +38,11 @@
           header("Location: ../login.php?status=Account verified you can login now !");
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
-          exit;
+          exit();
         }
       } else {
         header("Location: ../register.php?error=Page not found !");
+        exit();
       }
     } else {
       header("Location: ../register.php?error=Page not found, or link expired !");

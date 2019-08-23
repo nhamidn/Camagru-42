@@ -17,7 +17,7 @@ else {
     $query->execute();
   } catch (PDOException $e) {
     echo 'Error: '.$e->getMessage();
-    exit;
+    exit();
   }
   if ($query->fetchColumn()) {
     try {
@@ -42,7 +42,7 @@ else {
       }
     } catch (PDOException $e) {
       echo 'Error: '.$e->getMessage();
-      exit;
+      exit();
     }
   } else {
     header("Location: ../login.php?status=No account with this username !");

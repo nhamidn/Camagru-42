@@ -27,8 +27,15 @@ if (empty($_POST["eemail"])) {
       $who = $data['username'];
       $verified = $data['verified'];
       if ($verified == 'Y') {
-        $rtoken = bin2hex(uniqid($who, true));
-        
+        try {
+          $rtoken = bin2hex(uniqid($who, true));
+          $query = $dbh->prepare("UPDATE users SET token = :rtoken WHERE email = :remail");
+          $query->bindParam(':rtoken', $rtoken, PDO::PARAM_STR);
+          $query->bindParam(':remail', $email, PDO::PARAM_STR);
+          $query->execute();
+        } catch (PDOException $e) {
+          echo 'Error: '.$e->getMessage();
+        }
       } else {
         header("Location: ../reset.php?error=Account not activated yet !");
         exit();

@@ -26,7 +26,7 @@ else {
         $query->execute();
       } catch (PDOException $e) {
         echo 'Error: '.$e->getMessage();
-        exit;
+        exit();
       }
       if ($query->fetchColumn()) {
         header("Location: ../register.php?error=Username already taken.");
@@ -39,7 +39,7 @@ else {
           $query->execute();
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
-          exit;
+          exit();
         }
         if ($query->fetchColumn()) {
           header("Location: ../register.php?error=Email already associated with an existing account.");
@@ -59,6 +59,7 @@ else {
         $query->execute();
       } catch (PDOException $e) {
         echo 'Error: '.$e->getMessage();
+        exit();
       }
 
       //------------------------------------- MAIL -----------------------------
