@@ -60,21 +60,23 @@
 			 	<button type="submit" class="btn btn-warning" style="color: white">Log in</button>
 				<button type="button" class="btn btn-danger" onclick="recover()" style="color: white">Reset your password</button>
 				<script>
+				var elem;
 				function recover() {
 				  var xhttp = new XMLHttpRequest();
 				  xhttp.onreadystatechange = function() {
 				    if (this.readyState == 4 && this.status == 200) {
-				      document.getElementById("justify").innerHTML =
-				      this.responseText;
+							elem = document.getElementById("justify").innerHTML;
+				      document.getElementById("justify").innerHTML = this.responseText;
 				      }
 				  };
 				  xhttp.open("GET", "./reset.php", true);
 				  xhttp.send();
 				}
+				function login() {
+					document.getElementById("justify").innerHTML = elem;
+				}
 				</script>
 		 	</form>
-			<br>
-			<medium>Forgot password ? <a href="./reset.php">Reset it</a></medium>
 			</div>
 		</div>
 		</div>
