@@ -37,6 +37,22 @@
   		float: none;
 		}
 		</style>
+		<?php
+		if ($_GET[p] == "2") {
+			?>
+			<script type="text/javascript">
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						elem = document.getElementById("justify").innerHTML;
+						document.getElementById("justify").innerHTML = this.responseText;
+						}
+				};
+				xhttp.open("GET", "./reset.php", true);
+				xhttp.send();
+			</script>
+			<?php
+		} ?>
   </head>
 
 
@@ -66,7 +82,7 @@
 				  xhttp.onreadystatechange = function() {
 				    if (this.readyState == 4 && this.status == 200) {
 							elem = document.getElementById("justify").innerHTML;
-							document.getElementById("errtext").innerHTML = "";
+							document.getElementById("errtext").innerHTML = "<div id='errtext' class='justify-content-center align-self-center' style='text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;'></div>";
 				      document.getElementById("justify").innerHTML = this.responseText;
 				      }
 				  };
@@ -74,7 +90,7 @@
 				  xhttp.send();
 				}
 				function login() {
-					document.getElementById("errtext").innerHTML = "";
+					document.getElementById("errtext").innerHTML = "<div id='errtext' class='justify-content-center align-self-center' style='text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;'></div>";
 					document.getElementById("justify").innerHTML = elem;
 				}
 				</script>

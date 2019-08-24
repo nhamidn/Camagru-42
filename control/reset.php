@@ -3,7 +3,7 @@ include '../config/database.php';
 session_start();
 
 if (empty($_POST["eemail"])) {
-    header("Location: ../reset.php?error=Please enter your recovery email !");
+    header("Location: ../login.php?status=Please enter your recovery email !&p=2");
     exit();
 } else {
   $email = strtolower($_POST["eemail"]);
@@ -35,7 +35,20 @@ if (empty($_POST["eemail"])) {
           $query->execute();
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
+          exit();
         }
+
+        //------------------------------------- MAIL -----------------------------
+
+        $subject = "CAMAGRU account recovery";
+        $headers = 'From: <nhamid@student.1337.ma>';
+        $message = 'Hello ' . $who . ', to reset your password click this link : http://localhost/control/reset.php?token=' . $rtoken . '.';
+        if (mail($email, $subject, $message, $headers)) {
+          header("Location: ../login.php?status=Please reset your password using the link sent to your mail !&p=2");
+        } else {
+          header("Location: ../login.php?status=Error sending mail !&p=2");
+        }
+
       } else {
         header("Location: ../reset.php?error=Account not activated yet !");
         exit();
