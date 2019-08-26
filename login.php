@@ -63,7 +63,7 @@
 		</div>
 		<div id="page-content">
 			<div id="justify">
-			<div class="card card-body col-md-6 mb-4 bg-light" >
+			<div class="card card-body col-md-6 mb-4 bg-light" <?php// if ($_GET[p] == "2") echo "style='display:none'";?>>
 		 	<form action="/control/login.php" method="post">
 				<div class="form-group">
 				 	<label for="InputUname">Username</label>
@@ -90,6 +90,7 @@
 				  xhttp.send();
 				}
 				function login() {
+
 					document.getElementById("errtext").innerHTML = "<div id='errtext' class='justify-content-center align-self-center' style='text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;'></div>";
 					document.getElementById("justify").innerHTML = elem;
 				}
