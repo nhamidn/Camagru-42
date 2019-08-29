@@ -28,7 +28,7 @@
       }
       if ($verified == "N") {
         $var = 'Y';
-        $null = null;
+        $null = "";
         try {
           $query = $dbh->prepare("UPDATE users SET verified = :verify, token = :notoken WHERE username = :user");
           $query->bindParam(':user', $who, PDO::PARAM_STR);

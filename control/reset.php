@@ -42,7 +42,7 @@ if (empty($_POST["eemail"])) {
 
         $subject = "CAMAGRU account recovery";
         $headers = 'From: <nhamid@student.1337.ma>';
-        $message = 'Hello ' . $who . ', to reset your password click this link : http://localhost/control/password.php?token=' . $rtoken . '.';
+        $message = 'Hello ' . $who . ', to reset your password click this link : http://localhost/password.php?token=' . $rtoken . '.';
         if (mail($email, $subject, $message, $headers)) {
           header("Location: ../login.php?status=Please reset your password using the link sent to your mail !&p=2");
         } else {
