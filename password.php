@@ -12,7 +12,7 @@ if (!empty($_GET["token"])) {
     try {
       $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $query = $dbh->prepare("SELECT * FROM users WHERE username = :user");
+      $query = $dbh->prepare("UPDATE users SET password = :rpass WHERE token = :rtoken");
       $query->bindParam(':user', $_SESSION[username], PDO::PARAM_STR);
       $query->execute();
       $data = array();

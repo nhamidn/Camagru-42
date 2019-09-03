@@ -31,6 +31,7 @@ else {
       if ($upass == $pass) {
         if ($verified == 'Y') {
           $_SESSION[username] = $who;
+          $_SESSION[logout] = hash(Whirlpool, bin2hex(uniqid($_SESSION[username], true)));
           header("Location: ../index.php");
         } else {
           header("Location: ../login.php?status=Account not activated yet !");

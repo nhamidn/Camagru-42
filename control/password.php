@@ -30,8 +30,6 @@ if (!empty($_SESSION[token]) || !empty($_SESSION[username])) {
       if ($_SESSION[token] != $data['token']) {
         header("Location: ../index.php");
         exit();
-      } else {
-        // code...
       }
     } catch (PDOException $e) {
       echo 'Error: '.$e->getMessage();
@@ -45,6 +43,78 @@ if (!empty($_SESSION[token]) || !empty($_SESSION[username])) {
     } else {
       header("Location: ../password.php?error=Passwords does not match !");
       exit();
+    }
+  } else if (strlen($_POST["rpass"]) < 8) {
+    if (!empty($_SESSION[token])) {
+      header("Location: ../password.php?token=" . $_SESSION[token] . "&error=Password must have a least lenght 8 !");
+      exit();
+    } else {
+      header("Location: ../password.php?error=Password must have a least lenght 8 !");
+      exit();
+    }
+  }
+  else if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\!@#\$%\^&\*\[\]"\';:_\-<>\., =\+\/]).{8,}$/', $_POST["rpass"])) {
+    if (!empty($_SESSION[token])) {
+      header("Location: ../password.php?token=" . $_SESSION[token] . "&error=Passwords must have [0-9] [a-z] [A-Z] and special characters!");
+      exit();
+    } else {
+      header("Location: ../password.php?error=Passwords must have [0-9] [a-z] [A-Z] and special characters!");
+      exit();
+    }
+  } else {
+    $pass = hash(Whirlpool, $_POST["rpass"]);
+    if (!empty($_SESSION[token])) {
+      try {
+        $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = $dbh->prepare("UPDATE users SET password = :rpass WHERE token = :rtoken");
+        $query->bindParam(':rpass', $pass, PDO::PARAM_STR);
+        $query->bindParam(':rtoken', $_SESSION[token], PDO::PARAM_STR);
+        $query->execute();
+        $null = "";
+        try {
+          $query = $dbh->prepare("UPDATE users SET token = :notoken WHERE token = :rtoken");
+          $query->bindParam(':rtoken', $_SESSION[token], PDO::PARAM_STR);
+          $query->bindParam(':notoken', $null, PDO::PARAM_STR);
+          $query->execute();
+        } catch (PDOException $e) {
+          echo 'Error: '.$e->getMessage();
+          exit();
+        }
+        // redirect to login page
+        session_destroy();
+        header ("Location: /login.php?status=Password changed, you can login now");
+        // --------------------
+      } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
+        exit();
+      }
+    } else {
+      try {
+        $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = $dbh->prepare("UPDATE users SET password = :rpass WHERE username = :ruser");
+        $query->bindParam(':rpass', $pass, PDO::PARAM_STR);
+        $query->bindParam(':ruser', $_SESSION[username], PDO::PARAM_STR);
+        $query->execute();
+        $null = "";
+        try {
+          $query = $dbh->prepare("UPDATE users SET token = :notoken WHERE username = :user");
+          $query->bindParam(':user', $_SESSION[username], PDO::PARAM_STR);
+          $query->bindParam(':notoken', $null, PDO::PARAM_STR);
+          $query->execute();
+        } catch (PDOException $e) {
+          echo 'Error: '.$e->getMessage();
+          exit();
+        }
+        // redirect to login page
+        session_destroy();
+        header ("Location: /login.php?status=Password changed, you can login now");
+        // --------------------
+      } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
+        exit();
+      }
     }
   }
 }

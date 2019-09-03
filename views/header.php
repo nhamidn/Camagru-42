@@ -39,11 +39,7 @@ else if (!empty($_SESSION[username]))
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation" onclick="toggle_btn()">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <?php if ($_SESSION[page] = "profile") {?>
-  <script type="text/javascript "src="../js/button.js"></script>
-<?php } else {?>
-  <script type="text/javascript "src="js/button.js"></script>
-<?php } ?>
+
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
@@ -52,12 +48,11 @@ else if (!empty($_SESSION[username]))
       <li class="nav-item active">
         <?php echo '<a class="nav-link" href="../index.php">Explorer</a>';?>
       </li>
-      <!-- <form class='nav-item active' action='user/ft_disconnect.php' method='post'>
-           <?php //echo '<a type='submit' class="nav-link" href="#">Disconnect</a>';?>
-        <button type='submit'>Disconnect</button>
-      </form> -->
       <li class="nav-item active">
-        <?php echo '<a class="nav-link" href="../users/profile.php">' . $_SESSION[username] . '</a>';?>
+        <?php echo '<a class="nav-link" href="../control/logout.php?token=' . $_SESSION[logout] . '">Disconnect</a>';?>
+      </li>
+      <li class="nav-item active">
+        <?php echo '<a class="nav-link" href="../users/profile.php">' . $_SESSION[username] . '</a>'; ?>
       </li>
     </ul>
   </div>
