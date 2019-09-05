@@ -43,7 +43,7 @@ else if (!empty($_SESSION[username]))
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <?php echo '<a class="nav-link" href="#">Camera</a>';?>
+        <?php echo '<a class="nav-link" href="../camera.php">Camera</a>';?>
       </li>
       <li class="nav-item active">
         <?php echo '<a class="nav-link" href="../index.php">Explorer</a>';?>
