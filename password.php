@@ -90,7 +90,7 @@ if (!empty($_GET["token"])) {
 			 	</div>
 			 	<div class="form-group">
 				 	<label for="InputPassword">Confirm New Password</label>
-				 	<input type="password" class="form-control" name="rpass2" id="exampleInputPassword1" placeholder="Password" required>
+				 	<input type="password" class="form-control" name="rpass2" id="exampleInputPassword2" placeholder="Password" required>
 			 	</div>
 			 	<button type="submit" class="btn btn-warning" style="color: white">Change Password</button>
 

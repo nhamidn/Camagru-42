@@ -39,7 +39,7 @@ else if (!empty($_SESSION[username]))
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation" onclick="toggle_btn()">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  <script type="text/javascript "src="../js/button.js"></script>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
@@ -51,6 +51,15 @@ else if (!empty($_SESSION[username]))
       <li class="nav-item active">
         <?php echo '<a class="nav-link" href="../control/logout.php?token=' . $_SESSION[logout] . '">Disconnect</a>';?>
       </li>
+      <?php
+      if ($_SESSION[page] == "profile") {
+        ?>
+        <li class="nav-item active">
+          <?php echo '<a class="nav-link" href="../settings.php">Edit Info</a>';?>
+        </li>
+        <?php
+      }
+      ?>
       <li class="nav-item active">
         <?php echo '<a class="nav-link" href="../users/profile.php">' . $_SESSION[username] . '</a>'; ?>
       </li>

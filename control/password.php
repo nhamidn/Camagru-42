@@ -4,7 +4,7 @@ include '../config/database.php';
 
 if (empty($_SESSION[token])) {
   if (empty($_SESSION[username])) {
-    header ("Location: /index.php");
+    header ("Location: ../index.php");
     exit();
   }
 }
@@ -44,12 +44,12 @@ if (!empty($_SESSION[token]) || !empty($_SESSION[username])) {
       header("Location: ../password.php?error=Passwords does not match !");
       exit();
     }
-  } else if (strlen($_POST["rpass"]) < 8) {
+  } else if (strlen($_POST["rpass"]) < 8 || strlen($_POST["rpass"]) > 15) {
     if (!empty($_SESSION[token])) {
-      header("Location: ../password.php?token=" . $_SESSION[token] . "&error=Password must have a least lenght 8 !");
+      header("Location: ../password.php?token=" . $_SESSION[token] . "&error=Passwords must have a lenght between 8 and 15 !");
       exit();
     } else {
-      header("Location: ../password.php?error=Password must have a least lenght 8 !");
+      header("Location: ../password.php?error=Passwords must have a lenght between 8 and 15 !");
       exit();
     }
   }

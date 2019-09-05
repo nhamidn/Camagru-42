@@ -24,7 +24,8 @@ try {
         `email` VARCHAR(100) NOT NULL,
         `password` VARCHAR(255) NOT NULL,
         `token` VARCHAR(255) NOT NULL,
-        `verified` VARCHAR(1) NOT NULL DEFAULT 'N'
+        `verified` VARCHAR(1) NOT NULL DEFAULT 'N',
+        `notification` VARCHAR(1) NOT NULL DEFAULT 'Y'
       )";
   $dbh->exec($sql);
   echo "USERS table created !<br>";

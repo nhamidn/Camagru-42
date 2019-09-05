@@ -7,13 +7,17 @@ if (empty($_POST["runame"]) || empty($_POST["remail"]) || empty($_POST["rpass"])
 }
 else {
   $mail = strtolower($_POST["remail"]);
+  if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+    header("Location: ../register.php?error=Please enter a valid email address.");
+    exit();
+  }
   if (strcmp($_POST["rpass"], $_POST["rpass2"]) != 0) {
     header("Location: ../register.php?error=Passwords does not match !");
   } else {
-    if (strlen($_POST["runame"]) < 6)
-      header("Location: ../register.php?error=Username must have a least lenght 6 !");
-    else if (strlen($_POST["rpass"]) < 8)
-      header("Location: ../register.php?error=Passwords must have a least lenght 8 !");
+    if (strlen($_POST["runame"]) < 6 || strlen($_POST["runame"]) > 50)
+      header("Location: ../register.php?error=Username must have a lenght between 6 and 50 !");
+    else if (strlen($_POST["rpass"]) < 8 || strlen($_POST["rpass"]) > 15)
+      header("Location: ../register.php?error=Passwords must have a lenght between 8 and 15 !");
     else if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\!@#\$%\^&\*\[\]"\';:_\-<>\., =\+\/]).{8,}$/', $_POST["rpass"]))
     {
       header("Location: ../register.php?error=Passwords must have [0-9] [a-z] [A-Z] and special characters!");
