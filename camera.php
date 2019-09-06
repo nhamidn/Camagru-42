@@ -35,7 +35,7 @@
 		<div id="page-content" style="background:red">
         <div class="row" id="main-side">
           <div class="col-8" style="background:white">
-            col-8
+            col-8 
           </div>
           <div class="col-4" style="background:green">
             col-4
