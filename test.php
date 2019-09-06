@@ -1,61 +1,55 @@
-<?php
-	session_start();
-	// if(session_status() == PHP_SESSION_ACTIVE)
-	// 	session_regenerate_id();
-  $_SESSION[page] = "reset";
-  if (!empty($_SESSION[username]))
-    header("Location: ./index.php");
-?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html>
+<head>
+    <title>Capture webcam image with php and jquery - ItSolutionStuff.com</title>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <style type="text/css">
+        #results { padding:20px; border:1px solid; background:#ccc; }
+    </style>
+</head>
+<body>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Camagru login</title>
-		<style media="screen">
-		html, body {
-		  margin: 0;
-		  height: 100%;
-		}
-		#page-content {
-		flex: 1 0 auto;
-		}
-		#justify {
-  		width: 100%;
-			min-height: 100%;
-  		margin: 0 auto;
-  		overflow: hidden;
-  		padding: 10px 0;
-  		align-items: center;
-  		justify-content: center;
-  		display: flex;
-  		float: none;
-		}
-		</style>
-  </head>
-  <body class="d-flex flex-column">
-		<?php include_once "views/header.php"; ?>
-		<div class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
-					<?php if ($_GET[error]) echo $_GET[error]; ?>
-		</div>
-		<div id="page-content">
-			<div id="justify">
-			<div class="card card-body col-md-6 mb-4 bg-light" >
-		 	<form action="/control/reset.php" method="post">
-        <div class="form-group">
-          <label for="InputEmail">Please enter your email address :</label>
-          <input type="email" class="form-control" name="eemail" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email" required>
+<div class="container">
+    <h1 class="text-center">Capture webcam image with php and jquery - ItSolutionStuff.com</h1>
+
+    <form method="POST" action="storeImage.php">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="my_camera"></div>
+                <br/>
+                <input type=button value="Take Snapshot" onClick="take_snapshot()">
+                <input type="hidden" name="image" class="image-tag">
+            </div>
+            <div class="col-md-6">
+                <div id="results">Your captured image will appear here...</div>
+            </div>
+            <div class="col-md-12 text-center">
+                <br/>
+                <button class="btn btn-success">Submit</button>
+            </div>
         </div>
-			 	<button type="submit" class="btn btn-warning" style="color: white">Reset Password</button>
-		 	</form>
-			<br>
-			</div>
-		</div>
-		</div>
-		<?php include_once "views/footer.php"; ?>
-  </body>
+    </form>
+</div>
+
+<!-- Configure a few settings and attach camera -->
+<script language="JavaScript">
+    Webcam.set({
+        width: 490,
+        height: 390,
+        image_format: 'jpeg',
+        jpeg_quality: 90
+    });
+
+    Webcam.attach( '#my_camera' );
+
+    function take_snapshot() {
+        Webcam.snap( function(data_uri) {
+            $(".image-tag").val(data_uri);
+            document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+        } );
+    }
+</script>
+
+</body>
 </html>

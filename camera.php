@@ -35,7 +35,46 @@
 		<div id="page-content" style="background:red">
         <div class="row" id="main-side">
           <div class="col-8" style="background:white">
-            col-8 
+
+
+<form method="POST" action="storeImage.php">
+<div class="row">
+						<div class="col-md-6" style="background:yellow">
+                <div id="my_camera"></div>
+                <br/>
+                <input type=button value="Take Snapshot" onClick="take_snapshot()">
+                <input type="hidden" name="image" class="image-tag">
+            </div>
+            <div class="col-md-6" style="background:black">
+                <div id="results">Your captured image will appear here...</div>
+            </div>
+            <div class="col-md-12 text-center">
+                <br/>
+                <button class="btn btn-success">Submit</button>
+            </div>
+						<!-- Configure a few settings and attach camera -->
+						<script language="JavaScript">
+						    Webcam.set({
+						        width: 490,
+						        height: 390,
+						        image_format: 'jpeg',
+						        jpeg_quality: 90
+						    });
+
+						    Webcam.attach( '#my_camera' );
+
+						    function take_snapshot() {
+						        Webcam.snap( function(data_uri) {
+						            $(".image-tag").val(data_uri);
+						            document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
+						        } );
+						    }
+						</script>
+
+</div>
+</form>
+
+
           </div>
           <div class="col-4" style="background:green">
             col-4
