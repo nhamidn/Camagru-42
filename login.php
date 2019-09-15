@@ -63,7 +63,7 @@
 		</div>
 		<div id="page-content" class="card border-0 justify-content-center">
 			<div id="justify">
-			<div class="card card-body col-md-6 mb-4 bg-light" <?php// if ($_GET[p] == "2") echo "style='display:none'";?>>
+			<div class="card card-body col-md-6 mb-4 bg-light" <?php// if ($_GET[p] == "2") echo "style='display:none'";?>
 		 	<form action="/control/login.php" method="post">
 				<div class="form-group">
 				 	<label for="InputUname">Username</label>
