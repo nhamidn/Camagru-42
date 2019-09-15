@@ -43,7 +43,7 @@
 		<div class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
 				<?php if ($_GET[error]) echo $_GET[error]; ?>
 		</div>
-		<div id="page-content">
+		<div id="page-content" class="card border-0 justify-content-center">
 			<div id="justify">
 			<div class="card card-body col-md-6 mb-4 bg-light" >
 		 	<form action="/control/register.php" method="post">
