@@ -6,6 +6,7 @@ if (empty($_POST["runame"]) || empty($_POST["remail"]) || empty($_POST["rpass"])
     exit();
 }
 else {
+  $_POST["runame"] = strtolower($_POST["runame"]);
   $mail = strtolower($_POST["remail"]);
   if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
     header("Location: ../register.php?error=Please enter a valid email address.");
