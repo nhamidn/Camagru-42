@@ -32,7 +32,7 @@
 	</head>
 	<body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
-		<div id="page-content" style="background:red">
+		<div id="page-content" style="background:red" class=" border-0 justify-content-center">
         <div class="row" id="main-side">
           <div class="col-8" style="background:white">
 
