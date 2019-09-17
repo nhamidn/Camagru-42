@@ -24,6 +24,22 @@ $_SESSION[page] = "profile";
 		#page-content {
 		flex: 1 0 auto;
 		}
+    .heighmin {
+      min-height:58px;
+    }
+    .heighminp {
+      min-height:258px;
+    }
+    @media only screen and (min-width: 992px) {
+      .heighminp {
+        min-height:58px;
+      }
+    }
+    @media only screen and (max-width: 992px) {
+      .heighminp {
+        min-height:258px;
+      }
+    }
 		</style>
   </head>
   <body class="d-flex flex-column">

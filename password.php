@@ -71,6 +71,22 @@ if (!empty($_GET["token"])) {
   		display: flex;
   		float: none;
 		}
+    .heighmin {
+      min-height:58px;
+    }
+    .heighminp {
+      min-height:218px;
+    }
+    @media only screen and (min-width: 992px) {
+      .heighminp {
+        min-height:58px;
+      }
+    }
+    @media only screen and (max-width: 992px) {
+      .heighminp {
+        min-height:218px;
+      }
+    }
 		</style>
   </head>
 

@@ -28,6 +28,30 @@
 		#page-content {
 		flex: 1 0 auto;
 		}
+		.heighmin {
+			min-height:58px;
+		}
+		.heighminp {
+			<?php if (empty($_SESSION[username])) {?>
+			min-height:138px;
+			<?php } else { ?>
+			min-height:218px;
+			<?php } ?>
+		}
+		@media only screen and (min-width: 992px) {
+			.heighminp {
+				min-height:58px;
+			}
+		}
+		@media only screen and (max-width: 992px) {
+			.heighminp {
+				<?php if (empty($_SESSION[username])) {?>
+				min-height:138px;
+				<?php } else { ?>
+				min-height:218px;
+				<?php } ?>
+			}
+		}
 		</style>
 	</head>
 	<body class="d-flex flex-column">

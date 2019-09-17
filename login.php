@@ -36,6 +36,22 @@
   		display: flex;
   		float: none;
 		}
+		.heighmin {
+			min-height:58px;
+		}
+		.heighminp {
+			min-height:98px;
+		}
+		@media only screen and (min-width: 992px) {
+			.heighminp {
+				min-height:58px;
+			}
+		}
+		@media only screen and (max-width: 992px) {
+			.heighminp {
+				min-height:98px;
+			}
+		}
 		</style>
 		<?php
 		if ($_GET[p] == "2") {

@@ -16,7 +16,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Camagru register</title>
+
+		<title>Camagru register</title>
 		<style media="screen">
 		html, body {
 		  margin: 0;
@@ -35,6 +36,22 @@
   		justify-content: center;
   		display: flex;
   		float: none;
+		}
+		.heighmin {
+			min-height:58px;
+		}
+		.heighminp {
+			min-height:98px;
+		}
+		@media only screen and (min-width: 992px) {
+			.heighminp {
+				min-height:58px;
+			}
+		}
+		@media only screen and (max-width: 992px) {
+			.heighminp {
+				min-height:98px;
+			}
 		}
 		</style>
   </head>
