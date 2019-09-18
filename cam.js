@@ -48,8 +48,8 @@
     canvas.height = height;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
 
-    // var data = canvas.toDataURL('image/png');
-    // photo.setAttribute('src', data);
+    var data = canvas.toDataURL('image/png');
+    photo.setAttribute('src', data);
   }
   function removeElement(elementId) {
     // Removes an element from the document

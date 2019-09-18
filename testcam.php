@@ -42,7 +42,9 @@
       min-height: 100%;
       background:blue;
     }
-
+    img {
+      max-width: 320px;
+    }
 		.heighmin {
       min-height:58px;
     }
@@ -81,14 +83,20 @@
               <video id="video"></video>
               <br/>
               <button class="btn btn-success" id="startbutton">Take Picture</button>
+              <br/>
+              <br/>
+              <!-- <input type="file" name="fileToUpload"> -->
+              <!-- <input type="file" accept="image/*" onchange="loadFile(event)"> -->
+              <input type="file" accept="image/*" onchange="return ShowImagePreview( this.files );" />
             </div>
           </div>
           <br/>
           <div id="justify">
             <div class="demo">
+              <!-- <img id="output"/> -->
               <canvas id="canvas"></canvas>
               <br/>
-              <button class="btn btn-success" id="submitbutton">Submit</button>
+              <button class="btn btn-success" id="submitbutton" disabled>Submit</button>
             </div>
             <br/>
           </div>
@@ -104,6 +112,75 @@
 
 
 		</div>
+    <script>
+      var loadFile = function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+          var output = document.getElementById('canvas');
+          output.width = 320;
+          output.getContext('2d').drawImage(reader.result, 0, 0, width, height);
+          // output.src = reader.result;
+        };
+        // reader.readAsDataURL(event.target.files[0]);
+      };
+    </script>
+
+
+
+
+
+
+    <script type="text/javascript">
+    function ShowImagePreview(files)
+    {
+      var file = files[0];
+      reader = new FileReader();
+      reader.onload = function(event){
+        var img = new Image;
+        img.onload = UpdatePreviewCanvas;
+        img.src = event.target.result;
+      }
+      reader.readAsDataURL(file);
+}
+
+
+function UpdatePreviewCanvas()
+{
+    var img = this;
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext( '2d' );
+
+    var world = new Object();
+    world.width = canvas.offsetWidth;
+    world.height = canvas.offsetHeight;
+    // console.log(world.width);
+    // console.log(world.height);
+
+    canvas.width = world.width;
+    canvas.height = world.height;
+    //----------------- calculate the value of scaling --------
+    var WidthDif = img.width - world.width;
+    var HeightDif = img.height - world.height;
+    var Scale = 0.0;
+    if( WidthDif > HeightDif ) {
+      Scale = world.width / img.width;}
+    else {
+        Scale = world.height / img.height;}
+    if(Scale > 1)
+        Scale = 1;
+    //----------------- calculate the width and height of the image --------
+    var UseWidth = Math.floor( img.width * Scale );
+    var UseHeight = Math.floor( img.height * Scale );
+
+    //----------------- center the image inside the canvas -----------------
+    var x = Math.floor( ( world.width - UseWidth ) / 2 );
+    var y = Math.floor( ( world.height - UseHeight ) / 2 );
+
+    context.drawImage( img, x, y, UseWidth, UseHeight );
+}
+    </script>
+
+
     <script type="text/javascript" src="cam.js"></script>
 		<?php include_once "views/footer.php"; ?>
 	</body>
