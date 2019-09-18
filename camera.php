@@ -39,25 +39,28 @@
 		<div id="page-content" style="background:red" class="card border-0 justify-content-center">
         <div class="row" id="main-side">
           <div class="col-8" style="background:white">
-						<form method="POST" action="storeImage.php">
 							<div class="row">
 								<div class="col-md-6" style="background:yellow">
                 	<video id="video"></video>
                 	<br/>
                 	<button id="startbutton">Prendre une photo</button>
+									<button id="uploadbutton">upload photo</button>
             		</div>
             <div class="col-md-6" style="background:black">
-                <div id="results">Your captured image will appear here...</div>
+                <!-- <div id="results">Your captured image will appear here...</div> -->
+								<form class="" action="index.html" method="post">
+									<canvas id="canvas"></canvas>
+									<br/>
+									<button class="btn btn-success" disabled>Submit</button>
+								</form>
 								<canvas id="canvas"></canvas>
             </div>
             <div class="col-md-12 text-center">
                 <br/>
-                <button class="btn btn-success">Submit</button>
+                STICKERS HERE !
             </div>
-						<!-- Configure a few settings and attach camera -->
 
 							</div>
-						</form>
 
 
 						<script type="text/javascript" src="cam.js">

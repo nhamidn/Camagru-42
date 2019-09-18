@@ -6,7 +6,7 @@
       canvas       = document.querySelector('#canvas'),
       photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#startbutton'),
-      width = "100%",
+      width = 320,
       height = 0;
 
   navigator.getMedia = ( navigator.getUserMedia ||
@@ -46,12 +46,24 @@
   function takepicture() {
     canvas.width = width;
     canvas.height = height;
+    // var element = document.getElementById(results);
+    // element.parentNode.removeChild(element);
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    var data = canvas.toDataURL('image/png');
-    photo.setAttribute('src', data);
+
+    // var data = canvas.toDataURL('image/png');
+    // photo.setAttribute('src', data);
   }
+  function removeElement(elementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
+}
 
   startbutton.addEventListener('click', function(ev){
+    if(document.body.contains(document.getElementById('results'))){
+        removeElement("results");
+    }
+
       takepicture();
     ev.preventDefault();
   }, false);
