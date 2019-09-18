@@ -32,6 +32,29 @@
       min-height: 100%;
       background:blue;
     }
+		.heighmin {
+      min-height:58px;
+    }
+    .heighminp {
+      min-height:218px;
+    }
+    @media only screen and (min-width: 992px) {
+      .heighminp {
+        min-height:58px;
+      }
+    }
+    @media only screen and (max-width: 992px) {
+      .heighminp {
+        min-height:218px;
+      }
+    }
+		@media (max-width: 1000px) {
+			.hello {
+
+    		flex: 0 0 50%;
+    max-width: 50%;
+}
+}
 		</style>
 	</head>
 	<body class="d-flex flex-column">
@@ -40,20 +63,20 @@
         <div class="row" id="main-side">
           <div class="col-8" style="background:white">
 							<div class="row">
-								<div class="col-md-6" style="background:yellow">
+								<div class="hello col-md-6">
                 	<video id="video"></video>
                 	<br/>
-                	<button id="startbutton">Prendre une photo</button>
-									<button id="uploadbutton">upload photo</button>
+                	<button class="btn btn-success" id="startbutton">Prendre une photo</button>
+									<!-- <button class="btn btn-success" id="uploadbutton">upload photo</button> -->
+
             		</div>
-            <div class="col-md-6" style="background:black">
+            <div class="col-md-6">
                 <!-- <div id="results">Your captured image will appear here...</div> -->
-								<form class="" action="index.html" method="post">
+								<!-- <form class="" action="index.html" method="post"> -->
 									<canvas id="canvas"></canvas>
 									<br/>
 									<button class="btn btn-success" disabled>Submit</button>
-								</form>
-								<canvas id="canvas"></canvas>
+								<!-- </form> -->
             </div>
             <div class="col-md-12 text-center">
                 <br/>
@@ -63,9 +86,7 @@
 							</div>
 
 
-						<script type="text/javascript" src="cam.js">
-
-						</script>
+						<script type="text/javascript" src="cam.js"></script>
 
 
           </div>
