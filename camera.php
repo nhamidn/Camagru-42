@@ -19,8 +19,12 @@
 			margin: 0;
 			height: 100%;
 		}
+		.row {
+			min-width: 100%;
+		}
 		#page-content {
 		flex: 1 0 auto;
+
 		}
     #main-side {
       max-width:100%;
@@ -32,47 +36,33 @@
 	</head>
 	<body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
-		<div id="page-content" style="background:red" class=" border-0 justify-content-center">
+		<div id="page-content" style="background:red" class="card border-0 justify-content-center">
         <div class="row" id="main-side">
           <div class="col-8" style="background:white">
-
-
-<form method="POST" action="storeImage.php">
-<div class="row">
-						<div class="col-md-6" style="background:yellow">
-                <div id="my_camera"></div>
-                <br/>
-                <input type=button value="Take Snapshot" onClick="take_snapshot()">
-                <input type="hidden" name="image" class="image-tag">
-            </div>
+						<form method="POST" action="storeImage.php">
+							<div class="row">
+								<div class="col-md-6" style="background:yellow">
+                	<video id="video"></video>
+                	<br/>
+                	<button id="startbutton">Prendre une photo</button>
+            		</div>
             <div class="col-md-6" style="background:black">
                 <div id="results">Your captured image will appear here...</div>
+								<canvas id="canvas"></canvas>
             </div>
             <div class="col-md-12 text-center">
                 <br/>
                 <button class="btn btn-success">Submit</button>
             </div>
 						<!-- Configure a few settings and attach camera -->
-						<script language="JavaScript">
-						    Webcam.set({
-						        width: 490,
-						        height: 390,
-						        image_format: 'jpeg',
-						        jpeg_quality: 90
-						    });
 
-						    Webcam.attach( '#my_camera' );
+							</div>
+						</form>
 
-						    function take_snapshot() {
-						        Webcam.snap( function(data_uri) {
-						            $(".image-tag").val(data_uri);
-						            document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
-						        } );
-						    }
+
+						<script type="text/javascript" src="cam.js">
+
 						</script>
-
-</div>
-</form>
 
 
           </div>

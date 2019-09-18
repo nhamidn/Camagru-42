@@ -106,7 +106,6 @@
 				  xhttp.send();
 				}
 				function login() {
-
 					document.getElementById("errtext").innerHTML = "<div id='errtext' class='justify-content-center align-self-center' style='text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;'></div>";
 					document.getElementById("justify").innerHTML = elem;
 				}
