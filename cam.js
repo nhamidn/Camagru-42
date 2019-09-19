@@ -14,11 +14,7 @@
                          navigator.mozGetUserMedia ||
                          navigator.msGetUserMedia);
 
-  navigator.getMedia(
-    {
-      video: true
-    },
-    function(stream) {
+  navigator.getMedia({video: true},function(stream) {
       if (navigator.mozGetUserMedia) {
         video.mozSrcObject = stream;
       } else {
@@ -28,10 +24,12 @@
       video.play();
     },
     function(err) {
-      console.log("An error occured! " + err);
+      document.getElementById("startbutton").disabled = true;
+      return false;
     }
-  );
 
+  );
+  document.getElementById("startbutton").disabled = false;
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
       height = video.videoHeight / (video.videoWidth/width);
@@ -51,7 +49,10 @@
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
     document.getElementById("camwithstick").style.marginLeft = marginl+"px";
     document.getElementById("camwithstick").style.marginTop = margint+"px";
-    document.getElementById("camwithstick").style.display = "block";
+    if (document.getElementById("imgvideo").style.display == "block") {
+     document.getElementById("camwithstick").style.display = "block";
+     document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
+   }
 
     // var data = canvas.toDataURL('image/png');
     // photo.setAttribute('src', data);

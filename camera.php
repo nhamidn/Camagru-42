@@ -60,41 +60,30 @@
 	<body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
 		<div id="page-content" style="background:red" class="card border-0 justify-content-center">
-        <div class="row" id="main-side">
-          <div class="col-8" style="background:white">
-							<div class="row">
-								<div class="hello col-md-6">
-                	<video id="video"></video>
-                	<br/>
-                	<button class="btn btn-success" id="startbutton">Prendre une photo</button>
-									<!-- <button class="btn btn-success" id="uploadbutton">upload photo</button> -->
+			<div class="parent-container d-flex">
+				<div class="container bg-danger">
+			<div class="row">
+					<div class="col-md-6">
+					<video class="img-fluid " id="video"></video>
+					<br/>
+					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto">Get started</button><br/><br/>
+					</div>
+					<div class="col">
+					<canvas class="img-fluid" id="canvas"></canvas>
+					</div>
+			</div>
+	</div>
 
-            		</div>
-            <div class="col-md-6">
-                <!-- <div id="results">Your captured image will appear here...</div> -->
-								<!-- <form class="" action="index.html" method="post"> -->
-									<canvas id="canvas"></canvas>
-									<br/>
-									<button class="btn btn-success" disabled>Submit</button>
-								<!-- </form> -->
-            </div>
-            <div class="col-md-12 text-center">
-                <br/>
-                STICKERS HERE !
-            </div>
-
-							</div>
-
-
-						<script type="text/javascript" src="cam.js"></script>
-
-
-          </div>
-          <div class="col-4" style="background:green">
-            col-4
-          </div>
-        </div>
+	<div class="container bg-primary">
+			<div class="row">
+					<div class="col">
+							Container Right
+					</div>
+			</div>
+	</div>
+</div>
 		</div>
+		<script type="text/javascript" src="cam.js"></script>
 		<?php include_once "views/footer.php"; ?>
 	</body>
 </html>

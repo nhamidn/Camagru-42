@@ -79,17 +79,17 @@
 		<div id="page-content" style="background:red;max-width:90%" class="card border-0 justify-content-center">
       <div class="row" style="min-width:100%">
         <div class="col-sm-6" style="background-color:yellow;">
-          <div id="justify">
+          <div id="justify" class="container">
             <div class="video_player">
-							<img id="imgvideo" class="imgoncam" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:10px;display:none">
-            	<video id="video"></video>
+							<img id="imgvideo" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:10px;display:none">
+            	<video id="video" class="img-fluid"></video>
               <br/>
-              <button class="btn btn-success" id="startbutton">Take Picture</button>
+              <button class="btn btn-success" id="startbutton" disabled>Take Picture</button>
               <br/>
               <br/>
               <!-- <input type="file" name="fileToUpload"> -->
               <!-- <input type="file" accept="image/*" onchange="loadFile(event)"> -->
-              <input type="file" accept="image/*" onchange="return ShowImagePreview(this.files);" />
+              <input id="imginput" type="file" accept="image/*" onclick="clear();" onchange="return ShowImagePreview(this.files);" />
 							<br/>
 							<br/>
 							<div class="stickers" style="background:red;min-height:30px">
@@ -114,8 +114,8 @@
           <div id="justify">
             <div class="demo">
               <!-- <img id="output"/> -->
-							<img id="camwithstick" class="imgoncam" src="http://10.12.7.13/stickers/3.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:10px;display:none">
-              <canvas id="canvas"></canvas>
+							<img id="camwithstick" class="imgoncam" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:10px;display:none">
+              <canvas id="canvas" style="height:240px;width:320px"></canvas>
               <br/>
               <button class="btn btn-success" id="submitbutton" disabled>Submit</button>
             </div>
@@ -152,10 +152,8 @@
 
 
     <script type="text/javascript">
-    function ShowImagePreview(files)
-    {
-			if(!(window.File && window.FileReader && window.FileList && window.Blob))
-    	{
+    function ShowImagePreview(files) {
+			if(!(window.File && window.FileReader && window.FileList && window.Blob)) {
       	return false;
     	}
 
@@ -171,6 +169,7 @@
         img.onload = UpdatePreviewCanvas;
         img.src = event.target.result;
       }
+			console.log("test");
       reader.readAsDataURL(file);
 }
 
@@ -218,7 +217,10 @@ function UpdatePreviewCanvas()
     //----------------- center the image inside the canvas -----------------
     var x = Math.floor( ( world.width - UseWidth ) / 2 );
     var y = Math.floor( ( world.height - UseHeight ) / 2 );
-		document.getElementById("camwithstick").style.display = "block";
+		if (document.getElementById("imgvideo").style.display == "block") {
+		 document.getElementById("camwithstick").style.display = "block";
+		 document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
+	 }
     context.drawImage( img, x, y, UseWidth, UseHeight );
 }
     </script>
@@ -234,6 +236,12 @@ function UpdatePreviewCanvas()
 				console.log(stick);
 			}
 		</script>
+		<script>
+		function clear(){
+			console.log(document.getElementById("imginput").value);
+    	document.getElementById("imginput").value = "";
+		}
+</script>
 		<?php include_once "views/footer.php"; ?>
 	</body>
 </html>
