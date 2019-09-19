@@ -4,7 +4,7 @@
       video        = document.querySelector('#video'),
       cover        = document.querySelector('#cover'),
       canvas       = document.querySelector('#canvas'),
-      photo        = document.querySelector('#photo'),
+      // photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#startbutton'),
       width = 320,
       height = 0;

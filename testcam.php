@@ -42,9 +42,10 @@
       min-height: 100%;
       background:blue;
     }
-    img {
-      max-width: 320px;
-    }
+		.stickers {
+			justify-content: center;
+      display: flex;
+		}
 		.heighmin {
       min-height:58px;
     }
@@ -88,9 +89,27 @@
               <!-- <input type="file" name="fileToUpload"> -->
               <!-- <input type="file" accept="image/*" onchange="loadFile(event)"> -->
               <input type="file" accept="image/*" onchange="return ShowImagePreview( this.files );" />
+							<br/>
+							<br/>
+							<div class="stickers" style="background:red;min-height:30px">
+								<ul class="list-group list-group-horizontal">
+  								<li class="list-group-item d-flex justify-content-between align-items-center">
+										<img src="http://10.12.7.13/stickers/1.png" class="img-fluid" alt="quixote" style="max-width:30px">
+									</li>
+  								<li class="list-group-item">
+										<img src="http://10.12.7.13/stickers/2.png" class="img-fluid" alt="quixote" style="max-width:30px">
+									</li>
+  								<li class="list-group-item">
+										<img src="http://10.12.7.13/stickers/3.png" class="img-fluid" alt="quixote" style="max-width:30px">
+									</li>
+									<li class="list-group-item">
+										<img src="http://10.12.7.13/stickers/4.png" class="img-fluid" alt="quixote" style="max-width:30px">
+									</li>
+								</ul>
+							</div>
             </div>
           </div>
-          <br/>
+
           <div id="justify">
             <div class="demo">
               <!-- <img id="output"/> -->
