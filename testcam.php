@@ -81,7 +81,7 @@
         <div class="col-sm-6" style="background-color:yellow;">
           <div id="justify">
             <div class="video_player">
-							<img class="imgoncam" src="http://10.12.7.13/stickers/3.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:20px">
+							<img id="imgvideo" class="imgoncam" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:10px;display:none">
             	<video id="video"></video>
               <br/>
               <button class="btn btn-success" id="startbutton">Take Picture</button>
@@ -107,12 +107,6 @@
 										<img src="http://10.12.7.13/stickers/4.png" class="img-fluid" alt="quixote" style="max-width:30px">
 									</li>
 								</ul>
-								<script type="text/javascript">
-									function stickclick(stick)
-									{
-										console.log(stick);
-									}
-								</script>
 							</div>
             </div>
           </div>
@@ -120,7 +114,7 @@
           <div id="justify">
             <div class="demo">
               <!-- <img id="output"/> -->
-							<img id="camwithstick" class="imgoncam" src="http://10.12.7.13/stickers/3.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:20px">
+							<img id="camwithstick" class="imgoncam" src="http://10.12.7.13/stickers/3.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:10px;display:none">
               <canvas id="canvas"></canvas>
               <br/>
               <button class="btn btn-success" id="submitbutton" disabled>Submit</button>
@@ -224,13 +218,22 @@ function UpdatePreviewCanvas()
     //----------------- center the image inside the canvas -----------------
     var x = Math.floor( ( world.width - UseWidth ) / 2 );
     var y = Math.floor( ( world.height - UseHeight ) / 2 );
-
+		document.getElementById("camwithstick").style.display = "block";
     context.drawImage( img, x, y, UseWidth, UseHeight );
 }
     </script>
 
 
     <script type="text/javascript" src="cam.js"></script>
+		<script type="text/javascript">
+			function stickclick(stick)
+			{
+				document.getElementById("imgvideo").style.display = "block";
+				document.getElementById("imgvideo").src = "http://10.12.7.13/stickers/"+stick+".png";
+				document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
+				console.log(stick);
+			}
+		</script>
 		<?php include_once "views/footer.php"; ?>
 	</body>
 </html>
