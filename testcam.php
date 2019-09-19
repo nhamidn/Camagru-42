@@ -81,31 +81,38 @@
         <div class="col-sm-6" style="background-color:yellow;">
           <div id="justify">
             <div class="video_player">
-              <video id="video"></video>
+							<img class="imgoncam" src="http://10.12.7.13/stickers/3.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:20px">
+            	<video id="video"></video>
               <br/>
               <button class="btn btn-success" id="startbutton">Take Picture</button>
               <br/>
               <br/>
               <!-- <input type="file" name="fileToUpload"> -->
               <!-- <input type="file" accept="image/*" onchange="loadFile(event)"> -->
-              <input type="file" accept="image/*" onchange="return ShowImagePreview( this.files );" />
+              <input type="file" accept="image/*" onchange="return ShowImagePreview(this.files);" />
 							<br/>
 							<br/>
 							<div class="stickers" style="background:red;min-height:30px">
 								<ul class="list-group list-group-horizontal">
-  								<li class="list-group-item d-flex justify-content-between align-items-center">
+  								<li class="list-group-item" id="1" onclick="stickclick(this.id)">
 										<img src="http://10.12.7.13/stickers/1.png" class="img-fluid" alt="quixote" style="max-width:30px">
 									</li>
-  								<li class="list-group-item">
+  								<li class="list-group-item" id="2" onclick="stickclick(this.id)">
 										<img src="http://10.12.7.13/stickers/2.png" class="img-fluid" alt="quixote" style="max-width:30px">
 									</li>
-  								<li class="list-group-item">
+  								<li class="list-group-item" id="3" onclick="stickclick(this.id)">
 										<img src="http://10.12.7.13/stickers/3.png" class="img-fluid" alt="quixote" style="max-width:30px">
 									</li>
-									<li class="list-group-item">
+									<li class="list-group-item" id="4" onclick="stickclick(this.id)">
 										<img src="http://10.12.7.13/stickers/4.png" class="img-fluid" alt="quixote" style="max-width:30px">
 									</li>
 								</ul>
+								<script type="text/javascript">
+									function stickclick(stick)
+									{
+										console.log(stick);
+									}
+								</script>
 							</div>
             </div>
           </div>
@@ -113,6 +120,7 @@
           <div id="justify">
             <div class="demo">
               <!-- <img id="output"/> -->
+							<img id="camwithstick" class="imgoncam" src="http://10.12.7.13/stickers/3.png" alt="sticker" style="max-width:100px; max-height:100px; position:absolute; margin-top: 20px; margin-left:20px">
               <canvas id="canvas"></canvas>
               <br/>
               <button class="btn btn-success" id="submitbutton" disabled>Submit</button>
@@ -131,7 +139,7 @@
 
 
 		</div>
-    <script>
+    <!-- <script>
       var loadFile = function(event) {
         var reader = new FileReader();
         reader.onload = function(){
@@ -142,7 +150,7 @@
         };
         // reader.readAsDataURL(event.target.files[0]);
       };
-    </script>
+    </script> -->
 
 
 
@@ -152,6 +160,16 @@
     <script type="text/javascript">
     function ShowImagePreview(files)
     {
+			if(!(window.File && window.FileReader && window.FileList && window.Blob))
+    	{
+      	return false;
+    	}
+
+    // if( typeof FileReader === "undefined" )
+    // {
+    //     alert( "Filereader undefined!" );
+    //     return false;
+    // }
       var file = files[0];
       reader = new FileReader();
       reader.onload = function(event){
@@ -167,6 +185,7 @@ function UpdatePreviewCanvas()
 {
     var img = this;
     var canvas = document.getElementById('canvas');
+		// var stick = document.getElementById('camwithstick');
     var context = canvas.getContext( '2d' );
 
     var world = new Object();
@@ -178,6 +197,7 @@ function UpdatePreviewCanvas()
     canvas.width = world.width;
     canvas.height = world.height;
     //----------------- calculate the value of scaling --------
+
     var WidthDif = img.width - world.width;
     var HeightDif = img.height - world.height;
     var Scale = 0.0;
@@ -191,6 +211,16 @@ function UpdatePreviewCanvas()
     var UseWidth = Math.floor( img.width * Scale );
     var UseHeight = Math.floor( img.height * Scale );
 
+
+
+		if (UseWidth < world.width) {
+			var margin = (world.width - UseWidth) - 20;
+			document.getElementById("camwithstick").style.marginLeft = margin+"px";
+		}
+		if (UseHeight < world.height) {
+			var margin = (world.height - UseHeight) - 20;
+			document.getElementById("camwithstick").style.marginTop = margin+"px";
+		}
     //----------------- center the image inside the canvas -----------------
     var x = Math.floor( ( world.width - UseWidth ) / 2 );
     var y = Math.floor( ( world.height - UseHeight ) / 2 );
