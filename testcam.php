@@ -217,10 +217,10 @@ function UpdatePreviewCanvas()
     //----------------- center the image inside the canvas -----------------
     var x = Math.floor( ( world.width - UseWidth ) / 2 );
     var y = Math.floor( ( world.height - UseHeight ) / 2 );
-		if (document.getElementById("imgvideo").style.display == "block") {
-		 document.getElementById("camwithstick").style.display = "block";
-		 document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
-	 }
+		// if (document.getElementById("imgvideo").style.display == "block") {
+		//  document.getElementById("camwithstick").style.display = "block";
+		//  document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
+	 // }
     context.drawImage( img, x, y, UseWidth, UseHeight );
 }
     </script>

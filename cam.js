@@ -47,12 +47,12 @@
     var margint = 20;
     var marginl = 10;
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-    document.getElementById("camwithstick").style.marginLeft = marginl+"px";
-    document.getElementById("camwithstick").style.marginTop = margint+"px";
-    if (document.getElementById("imgvideo").style.display == "block") {
-     document.getElementById("camwithstick").style.display = "block";
-     document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
-   }
+    // document.getElementById("camwithstick").style.marginLeft = marginl+"px";
+    // document.getElementById("camwithstick").style.marginTop = margint+"px";
+   //  if (document.getElementById("imgvideo").style.display == "block") {
+   //   document.getElementById("camwithstick").style.display = "block";
+   //   document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
+   // }
 
     // var data = canvas.toDataURL('image/png');
     // photo.setAttribute('src', data);

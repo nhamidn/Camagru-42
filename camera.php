@@ -62,14 +62,41 @@
 		<div id="page-content" style="background:red" class="card border-0 justify-content-center">
 			<div class="parent-container d-flex">
 				<div class="container bg-danger">
-			<div class="row">
+					<div class="row">
 					<div class="col-md-6">
 					<video class="img-fluid " id="video"></video>
 					<br/>
-					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto">Get started</button><br/><br/>
+					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto">Take Picture</button><br/><br/>
+					<!-- <input id="imginput" type="file" accept="image/*" onclick="clear();" onchange="return ShowImagePreview(this.files);" /> -->
+					<div class="input-group">
+  					<div class="custom-file">
+    					<input type="file" accept="image/*" class="custom-file-input" id="imginput" onclick="clear();" onchange="return ShowImagePreview(this.files);"/>
+    					<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+  					</div>
+					</div>
+					<br/>
+					<br/>
+					<!-- <div class="stickers fluid">
+						<ul class="list-group list-group-horizontal fluid">
+							<li class="list-group-item" id="1" onclick="stickclick(this.id)">
+								<img src="http://10.12.7.13/stickers/1.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
+							</li>
+							<li class="list-group-item" id="2" onclick="stickclick(this.id)">
+								<img src="http://10.12.7.13/stickers/2.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
+							</li>
+							<li class="list-group-item" id="3" onclick="stickclick(this.id)">
+								<img src="http://10.12.7.13/stickers/3.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
+							</li>
+							<li class="list-group-item" id="4" onclick="stickclick(this.id)">
+								<img src="http://10.12.7.13/stickers/4.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
+							</li>
+						</ul>
+					</div> -->
+					<br/>
+					<br/>
 					</div>
 					<div class="col">
-					<canvas class="img-fluid" id="canvas"></canvas>
+						<canvas class="img-fluid" id="canvas"></canvas>
 					</div>
 			</div>
 	</div>
@@ -84,6 +111,82 @@
 </div>
 		</div>
 		<script type="text/javascript" src="cam.js"></script>
+		<script type="text/javascript">
+    function ShowImagePreview(files) {
+			if(!(window.File && window.FileReader && window.FileList && window.Blob)) {
+      	return false;
+    	}
+
+    // if( typeof FileReader === "undefined" )
+    // {
+    //     alert( "Filereader undefined!" );
+    //     return false;
+    // }
+      var file = files[0];
+      reader = new FileReader();
+      reader.onload = function(event){
+        var img = new Image;
+        img.onload = UpdatePreviewCanvas;
+        img.src = event.target.result;
+      }
+			console.log("test");
+      reader.readAsDataURL(file);
+}
+
+
+function UpdatePreviewCanvas()
+{
+    var img = this;
+    var canvas = document.getElementById('canvas');
+		// var stick = document.getElementById('camwithstick');
+    var context = canvas.getContext( '2d' );
+
+    var world = new Object();
+    world.width = 320;
+    world.height = 240
+    // console.log(world.width);
+    // console.log(world.height);
+
+    // canvas.width = world.width;
+    // canvas.height = world.height;
+    //----------------- calculate the value of scaling --------
+
+    var WidthDif = img.width - world.width;
+    var HeightDif = img.height - world.height;
+    var Scale = 0.0;
+    if( WidthDif > HeightDif ) {
+      Scale = world.width / img.width;}
+    else {
+        Scale = world.height / img.height;}
+    if(Scale > 1)
+        Scale = 1;
+    //----------------- calculate the width and height of the image --------
+    var UseWidth = Math.floor( img.width * Scale );
+    var UseHeight = Math.floor( img.height * Scale );
+
+
+
+		// if (UseWidth < world.width) {
+		// 	var margin = (world.width - UseWidth) - 20;
+		// 	document.getElementById("camwithstick").style.marginLeft = margin+"px";
+		// }
+		// if (UseHeight < world.height) {
+		// 	var margin = (world.height - UseHeight) - 20;
+		// 	document.getElementById("camwithstick").style.marginTop = margin+"px";
+		// }
+    //----------------- center the image inside the canvas -----------------
+    var x = Math.floor( ( world.width - UseWidth ) / 2 );
+    var y = Math.floor( ( world.height - UseHeight ) / 2 );
+		// if (document.getElementById("imgvideo").style.display == "block") {
+		//  document.getElementById("camwithstick").style.display = "block";
+		//  document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
+	 // }
+	 	// var width = 320,
+	 	// var video = document.getElementById("video");
+		// var height = video.videoHeight / (video.videoWidth/width);
+    context.drawImage(img, x, y, UseWidth, UseHeight);
+}
+    </script>
 		<?php include_once "views/footer.php"; ?>
 	</body>
 </html>
