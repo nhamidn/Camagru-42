@@ -6,7 +6,7 @@
       canvas       = document.querySelector('#canvas'),
       // photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#startbutton'),
-      width = 320,
+      width = 520,
       height = 0;
 
   navigator.getMedia = ( navigator.getUserMedia ||
@@ -46,6 +46,7 @@
     canvas.height = height;
     var margint = 20;
     var marginl = 10;
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
     // document.getElementById("camwithstick").style.marginLeft = marginl+"px";
     // document.getElementById("camwithstick").style.marginTop = margint+"px";

@@ -116,12 +116,6 @@
 			if(!(window.File && window.FileReader && window.FileList && window.Blob)) {
       	return false;
     	}
-
-    // if( typeof FileReader === "undefined" )
-    // {
-    //     alert( "Filereader undefined!" );
-    //     return false;
-    // }
       var file = files[0];
       reader = new FileReader();
       reader.onload = function(event){
@@ -142,8 +136,8 @@ function UpdatePreviewCanvas()
     var context = canvas.getContext( '2d' );
 
     var world = new Object();
-    world.width = 320;
-    world.height = 240
+    world.width = 520;
+    world.height = 390;
     // console.log(world.width);
     // console.log(world.height);
 
@@ -181,9 +175,9 @@ function UpdatePreviewCanvas()
 		//  document.getElementById("camwithstick").style.display = "block";
 		//  document.getElementById("camwithstick").src = document.getElementById("imgvideo").src
 	 // }
-	 	// var width = 320,
-	 	// var video = document.getElementById("video");
-		// var height = video.videoHeight / (video.videoWidth/width);
+	 	context.clearRect(0, 0, canvas.width, canvas.height);
+		context.fillStyle = "white";
+		context.fillRect(0, 0, canvas.width, canvas.height);
     context.drawImage(img, x, y, UseWidth, UseHeight);
 }
     </script>
