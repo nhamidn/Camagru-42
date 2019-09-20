@@ -99,7 +99,11 @@
 						<img id="camwithstick" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="position:absolute; margin-top: 3%; margin-left:3%;width:30%;height:auto;display:none">
 						<canvas class="img-fluid" id="canvas"></canvas>
 						<br/>
-						<button class="btn btn-success" id="upload" disabled>Submit</button>
+						<form class="uploadform" action="control/upload.php" method="post">
+							<input id="monatge" name="montage" type="hidden"/>
+							<input id="filter" name="filter" type="hidden"/>
+							<button class="btn btn-success" id="upload" disabled>Submit</button>
+						</form>
 					</div>
 			</div>
 	</div>
@@ -164,6 +168,7 @@
     context.drawImage(img, x, y, UseWidth, UseHeight);
 		document.getElementById("camwithstick").style.display = "block";
 		document.getElementById("upload").disabled = false;
+		document.getElementById('monatge').value = canvas.toDataURL('image/png');
 		// clear();
 	}
 	function clear(){
@@ -178,6 +183,8 @@
 				document.getElementById("startbutton").disabled = false;
 				document.getElementById("imginput").disabled = false;
 				document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
+				document.getElementById('filter').value = stick;
+
 			}
 		</script>
 
