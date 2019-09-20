@@ -48,6 +48,7 @@
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
     document.getElementById("camwithstick").style.display = "block";
+    document.getElementById("upload").disabled = false;
     clear();
     // document.getElementById("camwithstick").style.marginLeft = marginl+"px";
     // document.getElementById("camwithstick").style.marginTop = margint+"px";
