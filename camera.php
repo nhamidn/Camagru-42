@@ -96,7 +96,7 @@
 					<br/>
 					</div>
 					<div class="col">
-						<img id="camwithstick" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="position:absolute; margin-top: 3%; margin-left:3%;width:30%;height:auto;display:none">
+						<img id="camwithstick" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="position:absolute;width:30%;height:auto;display:none">
 						<canvas class="img-fluid" id="canvas"></canvas>
 						<br/>
 						<form class="uploadform" action="control/upload.php" method="post">
