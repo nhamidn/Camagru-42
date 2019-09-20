@@ -3,6 +3,10 @@ session_start();
 include '../config/database.php';
 if (empty($_SESSION[username]))
   header("Location: ../login.php?status=Please login to access this page");
+if ($_POST['filter'] != "1" && $_POST['filter'] != "2" && $_POST['filter'] != "3" && $_POST['filter'] != "4") {
+  header("Location: ../camera.php");
+  exit();
+}
 $_SESSION[page] = "camera";
 if (empty($_POST['montage']) && empty($_POST['filter']))
   header("Location: ../camera.php");

@@ -76,19 +76,19 @@
 					<br/>
 					<div class="row justify-content-center">
 						<div>
-							<input id="cadre.png" type="radio" name="img" value="1" onclick="stickclick(this.value)">
+							<input id="1" type="radio" name="img" value="1" onclick="stickclick(this.value)">
 							<img class="img-fluid" src="stickers/1.png" style="max-width:30px"></img>
 						</div>
 						<div>
-							<input id="cigarette.png" type="radio" name="img" value="2" onclick="stickclick(this.value)">
+							<input id="2" type="radio" name="img" value="2" onclick="stickclick(this.value)">
 							<img class="img-fluid" src="stickers/2.png" style="max-width:30px"></img>
 						</div>
 						<div>
-							<input id="hat.png" type="radio" name="img" value="3" onclick="stickclick(this.value)">
+							<input id="3" type="radio" name="img" value="3" onclick="stickclick(this.value)">
 							<img class="img-fluid" src="stickers/3.png" style="max-width:30px"></img>
 						</div>
 						<div>
-							<input id="hat.png" type="radio" name="img" value="4" onclick="stickclick(this.value)">
+							<input id="4" type="radio" name="img" value="4" onclick="stickclick(this.value)">
 							<img class="img-fluid" src="stickers/4.png" style="max-width:30px"></img>
 						</div>
  				</div>
@@ -186,8 +186,10 @@
 
 				document.getElementById("startbutton").disabled = false;
 				document.getElementById("imginput").disabled = false;
+				if (stick == "1" || stick == "2" || stick == "3" || stick == "4") {
 				document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
-				document.getElementById('filter').value = stick;
+				}
+			document.getElementById('filter').value = stick;
 
 			}
 		</script>
