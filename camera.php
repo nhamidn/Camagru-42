@@ -124,6 +124,10 @@
       	return false;
     	}
       var file = files[0];
+
+			if(!(/image/i).test(file.type)){
+				return false;
+			}
       reader = new FileReader();
       reader.onload = function(event){
         var img = new Image;
@@ -141,8 +145,8 @@
     var context = canvas.getContext( '2d' );
 
     var world = new Object();
-    world.width = 520;
-    world.height = 390;
+    world.width = 1024;
+    world.height = 768;
     //----------------- calculate the value of scaling --------
 
     var WidthDif = img.width - world.width;
