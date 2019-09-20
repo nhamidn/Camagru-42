@@ -66,36 +66,38 @@
 					<div class="col-md-6">
 					<video class="img-fluid " id="video"></video>
 					<br/>
-					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto">Take Picture</button><br/><br/>
+					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto" disabled>Take Picture</button><br/><br/>
 					<!-- <input id="imginput" type="file" accept="image/*" onclick="clear();" onchange="return ShowImagePreview(this.files);" /> -->
 					<div class="input-group">
   					<div class="custom-file">
-    					<input type="file" accept="image/*" class="custom-file-input" id="imginput" onclick="clear();" onchange="return ShowImagePreview(this.files);"/>
-    					<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    					<input type="file" disabled accept="image/*" class="custom-file-input" id="imginput" onclick="clear();" onchange="return ShowImagePreview(this.files);"/>
+    					<label class="custom-file-label" for="inputGroupFile01" style="font-size:1vw;">Choose file</label>
   					</div>
 					</div>
 					<br/>
-					<br/>
-					<!-- <div class="stickers fluid">
-						<ul class="list-group list-group-horizontal fluid">
-							<li class="list-group-item" id="1" onclick="stickclick(this.id)">
-								<img src="http://10.12.7.13/stickers/1.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
-							</li>
-							<li class="list-group-item" id="2" onclick="stickclick(this.id)">
-								<img src="http://10.12.7.13/stickers/2.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
-							</li>
-							<li class="list-group-item" id="3" onclick="stickclick(this.id)">
-								<img src="http://10.12.7.13/stickers/3.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
-							</li>
-							<li class="list-group-item" id="4" onclick="stickclick(this.id)">
-								<img src="http://10.12.7.13/stickers/4.png" class="img-fluid" alt="quixote" style="min-width:5px;max-width:30px">
-							</li>
-						</ul>
-					</div> -->
+					<div class="row justify-content-center">
+						<div>
+							<input id="cadre.png" type="radio" name="img" value="1" onclick="stickclick(this.value)">
+							<img class="img-fluid" src="stickers/1.png" style="max-width:30px"></img>
+						</div>
+						<div>
+							<input id="cigarette.png" type="radio" name="img" value="2" onclick="stickclick(this.value)">
+							<img class="img-fluid" src="stickers/2.png" style="max-width:30px"></img>
+						</div>
+						<div>
+							<input id="hat.png" type="radio" name="img" value="3" onclick="stickclick(this.value)">
+							<img class="img-fluid" src="stickers/3.png" style="max-width:30px"></img>
+						</div>
+						<div>
+							<input id="hat.png" type="radio" name="img" value="4" onclick="stickclick(this.value)">
+							<img class="img-fluid" src="stickers/4.png" style="max-width:30px"></img>
+						</div>
+ 				</div>
 					<br/>
 					<br/>
 					</div>
 					<div class="col">
+						<img id="camwithstick" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="position:absolute; margin-top: 3%; margin-left:3%;width:30%;height:auto;display:none">
 						<canvas class="img-fluid" id="canvas"></canvas>
 					</div>
 			</div>
@@ -123,13 +125,13 @@
         img.onload = UpdatePreviewCanvas;
         img.src = event.target.result;
       }
-			console.log("test");
+			// console.log("test");
       reader.readAsDataURL(file);
-}
+		}
 
 
-function UpdatePreviewCanvas()
-{
+		function UpdatePreviewCanvas()
+		{
     var img = this;
     var canvas = document.getElementById('canvas');
 		// var stick = document.getElementById('camwithstick');
@@ -179,8 +181,26 @@ function UpdatePreviewCanvas()
 		context.fillStyle = "white";
 		context.fillRect(0, 0, canvas.width, canvas.height);
     context.drawImage(img, x, y, UseWidth, UseHeight);
-}
+		document.getElementById("camwithstick").style.display = "block";
+		// clear();
+	}
+	function clear(){
+		console.log(document.getElementById("imginput").value);
+		document.getElementById("imginput").value = "";
+	}
     </script>
+		<script type="text/javascript">
+			function stickclick(stick)
+			{
+				// document.getElementById("imgvideo").style.display = "block";
+				// document.getElementById("imgvideo").src = stick;
+				// console.log(stick);
+				document.getElementById("startbutton").disabled = false;
+				document.getElementById("imginput").disabled = false;
+				document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
+			}
+		</script>
+
 		<?php include_once "views/footer.php"; ?>
 	</body>
 </html>

@@ -29,7 +29,6 @@
     }
 
   );
-  document.getElementById("startbutton").disabled = false;
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
       height = video.videoHeight / (video.videoWidth/width);
@@ -48,6 +47,8 @@
     var marginl = 10;
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    document.getElementById("camwithstick").style.display = "block";
+    clear();
     // document.getElementById("camwithstick").style.marginLeft = marginl+"px";
     // document.getElementById("camwithstick").style.marginTop = margint+"px";
    //  if (document.getElementById("imgvideo").style.display == "block") {
@@ -57,6 +58,10 @@
 
     // var data = canvas.toDataURL('image/png');
     // photo.setAttribute('src', data);
+  }
+  function clear(){
+    // console.log(document.getElementById("imginput").value);
+    document.getElementById("imginput").value = "";
   }
 
   startbutton.addEventListener('click', function(ev){
