@@ -1,8 +1,24 @@
 <?php
 	session_start();
+	include './config/database.php';
 	$_SESSION[page] = "camera";
 	if (empty($_SESSION[username]))
 		header('Location: ./login.php');
+	try {
+		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname');
+		$query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+		$query->execute();
+		// $data = array();
+		// while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+		// 	print_r($data['picture']);
+		// 	echo "   /   ";
+		// }
+	} catch (PDOException $e) {
+		echo 'Error: '.$e->getMessage();
+		exit();
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -77,19 +93,19 @@
 					<hr>
 					<div class="row justify-content-center">
 						<div>
-							<input id="1" type="radio" name="img" value="1" onclick="stickclick(this.value)">
+							<input id="1" type="radio" name="img" value="1" onclick="stickclick(this.value, this.id)">
 							<img class="img-fluid" src="stickers/1.png" style="max-width:30px"></img>
 						</div>
 						<div>
-							<input id="2" type="radio" name="img" value="2" onclick="stickclick(this.value)">
+							<input id="2" type="radio" name="img" value="2" onclick="stickclick(this.value, this.id)">
 							<img class="img-fluid" src="stickers/2.png" style="max-width:30px"></img>
 						</div>
 						<div>
-							<input id="3" type="radio" name="img" value="3" onclick="stickclick(this.value)">
+							<input id="3" type="radio" name="img" value="3" onclick="stickclick(this.value, this.id)">
 							<img class="img-fluid" src="stickers/3.png" style="max-width:30px"></img>
 						</div>
 						<div>
-							<input id="4" type="radio" name="img" value="4" onclick="stickclick(this.value)">
+							<input id="4" type="radio" name="img" value="4" onclick="stickclick(this.value, this.id)">
 							<img class="img-fluid" src="stickers/4.png" style="max-width:30px"></img>
 						</div>
  				</div>
@@ -110,15 +126,37 @@
 			</div>
 	</div>
 
+
+
 	<div class="container card bg-light">
-			<div class="row py-md-4">
-					<div class="col">
-							<div class="col-md-6 card">
-								<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
-							</div>
-					</div>
+		<div class="row py-md-4">
+			<?php
+			$data = array();
+			while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+				?>
+				<div class="col-md-6 bg-light">
+					<img class="img-fluid border border-dark" <?php echo "src='./images/".$data['picture'].".png'" ?> ></img>
+				</div>
+
+				<?php
+				// print_r($data['picture']);
+				// echo "   /   ";
+			}
+			 ?>
+			<!-- <div class="col-md-6 bg-light">
+				<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
 			</div>
-	</div>
+			<hr>
+			<div class="col-md-6 bg-light">
+				<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
+			</div> -->
+		</div>
+</div>
+
+
+
+
+
 </div>
 		</div>
 		<script type="text/javascript" src="cam.js"></script>
@@ -128,7 +166,6 @@
       	return false;
     	}
       var file = files[0];
-
 			if(!(/image/i).test(file.type)){
 				return false;
 			}
@@ -185,19 +222,27 @@
 	}
     </script>
 		<script type="text/javascript">
-			function stickclick(stick)
+			function stickclick(stick, id)
 			{
-
-				document.getElementById("startbutton").disabled = false;
-				document.getElementById("imginput").disabled = false;
-				if (stick == "1" || stick == "2" || stick == "3" || stick == "4") {
-				document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
+				console.log(stick);
+				console.log(id);
+				if (id == stick) {
+					document.getElementById("startbutton").disabled = false;
+					document.getElementById("imginput").disabled = false;
+					if (stick == "1" || stick == "2" || stick == "3" || stick == "4") {
+						document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
+					}
+					document.getElementById('filter').value = stick;
 				}
-			document.getElementById('filter').value = stick;
-
 			}
 		</script>
 
 		<?php include_once "views/footer.php"; ?>
 	</body>
+	<!-- <div class="col-md-6 card">
+		<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
+	</div>
+	<div class="col-md-6 card">
+		<img class="img-fluid border border-dark" src="./images/cde59b41437f1441967e3f6398049c70.png"></img>
+	</div> -->
 </html>
