@@ -26,8 +26,7 @@ list($width, $height, $type, $attr) = getimagesize($file);
 $src = imagecreatefrompng("../stickers/".$_POST['filter'].".png");
 $dest = imagecreatefrompng($file);
 imagecopy($dest, $src, 0, 0, 0, 0, 307, 230);
-imagepng($dest, $file, 9);
-move_uploaded_file($dest, $file);
+imagepng($dest, $file, 0);
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

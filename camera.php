@@ -7,7 +7,7 @@
 	try {
 		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname');
+		$query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname ORDER BY id DESC');
 		$query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
 		$query->execute();
 		// $data = array();
@@ -136,20 +136,16 @@
 				?>
 				<div class="col-md-6 bg-light">
 					<img class="img-fluid border border-dark" <?php echo "src='./images/".$data['picture'].".png'" ?> ></img>
-				</div>
+					<form class="" action="control/delete.php" method="post">
+						<input id="monatge"<?php echo "value='".$data['picture']."'" ?> value="" name="montage" type="hidden"/>
+						<button type="submit" class="btn btn-danger btn-block rounded-0">Delete</button>
+					</form>
 
+				</div>
 				<?php
-				// print_r($data['picture']);
-				// echo "   /   ";
 			}
 			 ?>
-			<!-- <div class="col-md-6 bg-light">
-				<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
-			</div>
-			<hr>
-			<div class="col-md-6 bg-light">
-				<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
-			</div> -->
+
 		</div>
 </div>
 
@@ -224,8 +220,6 @@
 		<script type="text/javascript">
 			function stickclick(stick, id)
 			{
-				console.log(stick);
-				console.log(id);
 				if (id == stick) {
 					document.getElementById("startbutton").disabled = false;
 					document.getElementById("imginput").disabled = false;

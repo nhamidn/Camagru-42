@@ -21,7 +21,7 @@ if (navigator.mediaDevices.getUserMedia) {
 video.srcObject=stream;
 video.play();
 })
-.catch(function (e) { logError(e.name + ": " + e.message); });
+.catch(function (e) { exit(); });
 }else {
   navigator.getMedia({video: true},function(stream) {
       video.srcObject=stream;
