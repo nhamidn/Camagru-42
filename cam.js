@@ -4,30 +4,41 @@
       video        = document.querySelector('#video'),
       cover        = document.querySelector('#cover'),
       canvas       = document.querySelector('#canvas'),
-      // photo        = document.querySelector('#photo'),
       startbutton  = document.querySelector('#startbutton'),
       width = 1024,
       height = 0;
 
   navigator.getMedia = ( navigator.getUserMedia ||
                          navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia ||
+                         // navigator.mozGetUserMedia ||
+                         navigator.mediaDevices.getUserMedia ||
                          navigator.msGetUserMedia);
 
+
+if (navigator.mediaDevices.getUserMedia) {
+  navigator.mediaDevices.getUserMedia({  audio: false, video: true })
+.then(function (stream) {
+video.srcObject=stream;
+video.play();
+})
+.catch(function (e) { logError(e.name + ": " + e.message); });
+}else {
   navigator.getMedia({video: true},function(stream) {
-      var vendorURL = window.URL || window.webkitURL;
       video.srcObject=stream;
       video.play();
     },
+
     function(err) {
       document.getElementById("startbutton").disabled = true;
       return false;
     }
 
   );
+    }
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
       height = video.videoHeight / (video.videoWidth/width);
+
       video.setAttribute('width', width);
       video.setAttribute('height', height);
       canvas.setAttribute('width', width);
@@ -39,6 +50,7 @@
   function takepicture() {
     canvas.width = width;
     canvas.height = height;
+
     if (document.getElementById('filter').value == "1"
         || document.getElementById('filter').value == "2"
         || document.getElementById('filter').value == "3"
@@ -49,6 +61,7 @@
     document.getElementById("upload").disabled = false;
     document.getElementById('monatge').value = canvas.toDataURL('image/png');
     clear();
+
   }
   else {
     return false;
