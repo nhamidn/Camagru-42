@@ -59,13 +59,14 @@
 	</head>
 	<body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
-		<div id="page-content" style="background:red" class="card border-0 justify-content-center">
-			<div class="parent-container d-flex">
-				<div class="container bg-danger">
-					<div class="row">
+		<div id="page-content" class="card border-0 justify-content-center">
+			<div class="parent-container d-flex px-md-4">
+				<div class="container card bg-light">
+					<div class="row py-md-4">
 					<div class="col-md-6">
-					<video class="img-fluid " id="video"></video>
+					<video class="img-fluid border border-dark" id="video"></video>
 					<br/>
+					<hr>
 					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto" disabled>Take Picture</button><br/><br/>
 					<div class="input-group">
   					<div class="custom-file">
@@ -73,7 +74,7 @@
     					<label class="custom-file-label" for="inputGroupFile01" style="font-size:1vw;">Choose file</label>
   					</div>
 					</div>
-					<br/>
+					<hr>
 					<div class="row justify-content-center">
 						<div>
 							<input id="1" type="radio" name="img" value="1" onclick="stickclick(this.value)">
@@ -95,10 +96,11 @@
 					<br/>
 					<br/>
 					</div>
-					<div class="col">
+					<div class="col-md-6">
 						<img id="camwithstick" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="position:absolute;width:30%;height:auto;display:none">
-						<canvas class="img-fluid" id="canvas"></canvas>
+						<canvas class="img-fluid border border-dark" id="canvas"></canvas>
 						<br/>
+						<hr>
 						<form class="uploadform" action="control/upload.php" method="post">
 							<input id="monatge" name="montage" type="hidden"/>
 							<input id="filter" name="filter" type="hidden"/>
@@ -108,10 +110,12 @@
 			</div>
 	</div>
 
-	<div class="container bg-primary">
-			<div class="row">
+	<div class="container card bg-light">
+			<div class="row py-md-4">
 					<div class="col">
-							Container Right
+							<div class="col-md-6 card">
+								<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
+							</div>
 					</div>
 			</div>
 	</div>
