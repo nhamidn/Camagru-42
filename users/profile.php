@@ -80,6 +80,14 @@ try {
     						<input id="monatge"<?php echo "value='".$data['picture']."'" ?> value="" name="montage" type="hidden"/>
     						<button type="submit" class="btn btn-danger btn-block rounded-0 border">Delete</button>
     					</form>
+              <form class="form-inline" role="form">
+                <div class="form-group" style="width:80%">
+                  <input class="form-control" style="width:100%" type="text" placeholder="Your comments" />
+                </div>
+                <div class="form-group" style="width:20%">
+                  <button class="btn btn-white border" style="width:100%">Add</button>
+                </div>
+              </form>
             </div>
           </div>
 
