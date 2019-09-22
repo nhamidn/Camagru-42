@@ -3,7 +3,7 @@
 	include './config/database.php';
 	$_SESSION[page] = "camera";
 	if (empty($_SESSION[username]))
-		header('Location: ./login.php');
+		header("Location: ../login.php?status=Please login to access this page");
 	try {
 		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -125,8 +125,6 @@
 					</div>
 			</div>
 	</div>
-
-
 
 	<div class="container card bg-light">
 		<div class="row py-md-4">

@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include './config/database.php';
 	// if(session_status() == PHP_SESSION_ACTIVE)
   //   session_regenerate_id();
 	// session_regenerate_id();

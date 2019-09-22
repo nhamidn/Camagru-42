@@ -9,7 +9,6 @@ if ($_POST['filter'] != "1" && $_POST['filter'] != "2" && $_POST['filter'] != "3
   header("Location: ../camera.php");
   exit();
 }
-$_SESSION[page] = "camera";
 if (empty($_POST['montage']) && empty($_POST['filter'])) {
   header("Location: ../camera.php");
   exit();
