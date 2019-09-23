@@ -130,7 +130,7 @@
 		<div class="row py-md-4">
 			<?php
 			$data = array();
-			while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+			while ($data = $query->fetch(PDO::FETCH_ASSOC)) {0
 				?>
 				<div class="col-md-6 bg-light">
 					<img class="img-fluid border border-dark" <?php echo "src='./images/".$data['picture'].".png'" ?> ></img>

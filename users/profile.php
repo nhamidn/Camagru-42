@@ -3,8 +3,10 @@ session_start();
 include '../config/database.php';
 // if(session_status() == PHP_SESSION_ACTIVE)
 //   session_regenerate_id();
-if (empty($_SESSION[username]))
+if (empty($_SESSION[username])) {
   header("Location: ../login.php?status=Please login to access this page");
+  exit();
+}
 $_SESSION[page] = "profile";
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -12,11 +14,6 @@ try {
   $query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname ORDER BY id DESC');
   $query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
   $query->execute();
-  // $data = array();
-  // while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
-  // 	print_r($data['picture']);
-  // 	echo "   /   ";
-  // }
 } catch (PDOException $e) {
   echo 'Error: '.$e->getMessage();
   exit();
@@ -80,14 +77,12 @@ try {
     						<input id="monatge"<?php echo "value='".$data['picture']."'" ?> value="" name="montage" type="hidden"/>
     						<button type="submit" class="btn btn-danger btn-block rounded-0 border">Delete</button>
     					</form>
-              <form class="form-inline" role="form">
-                <div class="form-group" style="width:80%">
-                  <input class="form-control" style="width:100%" type="text" placeholder="Your comments" />
-                </div>
-                <div class="form-group" style="width:20%">
-                  <button class="btn btn-white border" style="width:100%">Add</button>
-                </div>
-              </form>
+              <div class="cardbox-comments mt-2">
+                <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
+                <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn btn-warning" style="color:white">comment</button>
+                <br/>
+                <hr>
+            </div>
             </div>
           </div>
 
@@ -99,6 +94,25 @@ try {
       <?php } ?>
 
     </div>
+    <script type="text/javascript">
+    function comment(post)
+    {
+      console.log(post);
+      var comment = document.getElementById(post).value;
+      console.log(comment);
+
+      if (document.getElementById(post).value != "" && post != "") {
+        console.log("done");
+        var xhttp = new XMLHttpRequest();
+        var params = "cpicture=" + post + "&ccontent=" + comment;
+        xhttp.open('POST', 'http://localhost/control/comment.php');
+        xhttp.withCredentials = true;
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(params);
+      }
+      document.getElementById(post).value = "";
+    }
+    </script>
     <?php include_once "../views/footer.php"; ?>
   </body>
 </html>

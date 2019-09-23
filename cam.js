@@ -18,8 +18,13 @@
 if (navigator.mediaDevices.getUserMedia) {
   navigator.mediaDevices.getUserMedia({  audio: false, video: true })
 .then(function (stream) {
-video.srcObject=stream;
-video.play();
+  try {
+    video.src = window.URL.createObjectURL(stream);
+  } catch (error) {
+    video.srcObject = stream;
+  }
+  // video.srcObject=stream;
+  video.play();
 })
 .catch(function (e) { exit(); });
 }else {
