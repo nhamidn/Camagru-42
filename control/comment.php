@@ -26,6 +26,37 @@
           $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
           $query->bindParam(':content', htmlspecialchars($_POST['ccontent']), PDO::PARAM_STR);
           $query->execute();
+          try {
+            $query = $dbh->prepare("SELECT * FROM posts WHERE picture = :cpicture");
+            $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
+            $query->execute();
+            $infos = array();
+            $infos = $query->fetch(PDO::FETCH_ASSOC);
+            try {
+              $query = $dbh->prepare("SELECT * FROM users WHERE username = :uname");
+              $query->bindParam(':uname', $infos['username'], PDO::PARAM_STR);
+              $query->execute();
+              $mailinfos = array();
+              $mailinfos = $query->fetch(PDO::FETCH_ASSOC);
+
+
+              // Send mail notification
+
+              $subject = "User Notification";
+              $headers = 'From: <nhamid@student.1337.ma>';
+              $message = 'Hello ' . $mailinfos['username'] . ", " . $_SESSION[username] . ' has just left a comment on one of your pictures.';
+              mail($mailinfos['email'], $subject, $message, $headers);
+
+              //-----------------------
+
+            } catch (PDOException $e) {
+              echo 'Error: '.$e->getMessage();
+              exit();
+            }
+          } catch (PDOException $e) {
+            echo 'Error: '.$e->getMessage();
+            exit();
+          }
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
           exit();
@@ -33,11 +64,7 @@
       }
     }
   }
-  // Send mail notification
 
-    
-
-  //-----------------------
 ?>
 <?php
 try {
