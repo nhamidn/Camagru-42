@@ -6,7 +6,7 @@ if (empty($_POST["eemail"])) {
     header("Location: ../login.php?status=Please enter your recovery email !&p=2");
     exit();
 } else {
-  $email = strtolower($_POST["eemail"]);
+  $email = strtolower(trim($_POST["eemail"]));
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

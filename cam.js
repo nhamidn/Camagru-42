@@ -8,11 +8,11 @@
       width = 1024,
       height = 0;
 
-  navigator.getMedia = ( navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         // navigator.mozGetUserMedia ||
-                         navigator.mediaDevices.getUserMedia ||
-                         navigator.msGetUserMedia);
+  navigator.getMedia = (navigator.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        // navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia||
+                        navigator.msGetUserMedia);
 
 
 if (navigator.mediaDevices.getUserMedia) {

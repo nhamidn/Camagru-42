@@ -9,7 +9,7 @@ if (empty($_SESSION[username])) {
   exit();
 } else {
   if (!empty($_POST["nuname"])) {
-    $_POST["nuname"] = strtolower($_POST["nuname"]);
+    $_POST["nuname"] = strtolower(trim($_POST["nuname"]));
     if (strlen($_POST["nuname"]) < 6 || strlen($_POST["nuname"]) > 50)
       header("Location: ../settings.php?error=Username must have a lenght between 6 and 50!");
     if ($_POST["nuname"] == $_SESSION[username]) {
@@ -32,7 +32,7 @@ if (empty($_SESSION[username])) {
     }
   }
   if (!empty($_POST["nemail"])) {
-    $mail = strtolower($_POST["nemail"]);
+    $mail = strtolower(trim($_POST["nemail"]));
     if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
       header("Location: ../settings.php?error=Please enter a valid email address!");
       exit();
@@ -72,7 +72,7 @@ if (empty($_SESSION[username])) {
   // -----> Updating username
   if (!empty($_POST["nuname"])) {
     try {
-      $_POST["nuname"] = strtolower($_POST["nuname"]);
+      $_POST["nuname"] = strtolower(trim($_POST["nuname"]));
       $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $query = $dbh->prepare("UPDATE users SET username = :newuser WHERE username = :olduser");

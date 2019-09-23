@@ -5,7 +5,7 @@
     header("Location: ../login.php?status=Please login to make comments and likes");
     exit();
   }
-  if(!empty($_POST['cpicture']) and !empty($_POST['ccontent'])){
+  if(!empty($_POST['cpicture']) and !empty($_POST['ccontent'])) {
     if (!empty($_SESSION[username])) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -39,14 +39,14 @@
               $mailinfos = array();
               $mailinfos = $query->fetch(PDO::FETCH_ASSOC);
 
+              $who = $mailinfos['username'];
+              $whomail = $mailinfos['email'];
 
               // Send mail notification
-
               $subject = "User Notification";
               $headers = 'From: <nhamid@student.1337.ma>';
-              $message = 'Hello ' . $mailinfos['username'] . ", " . $_SESSION[username] . ' has just left a comment on one of your pictures.';
-              mail($mailinfos['email'], $subject, $message, $headers);
-
+              $message = 'Hello ' . $who . ", " . $_SESSION[username] . ' has just left a comment on one of your pictures.';
+              mail($whomail, $subject, $message, $headers);
               //-----------------------
 
             } catch (PDOException $e) {
@@ -95,7 +95,8 @@ try {
           </form>
           <div class="cardbox-comments mt-2">
             <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
-            <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn btn-warning" style="color:white">comment</button>
+            <button class="btn"><i class="fas fa-heart"></i></button>
+            <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
             <br/>
 
         </div>

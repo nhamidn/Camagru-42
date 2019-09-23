@@ -1,8 +1,6 @@
 <?php
 session_start();
 include '../config/database.php';
-// if(session_status() == PHP_SESSION_ACTIVE)
-//   session_regenerate_id();
 if (empty($_SESSION[username])) {
   header("Location: ../login.php?status=Please login to access this page");
   exit();
@@ -28,6 +26,7 @@ try {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
     <title>Camagru Profile</title>
     <style media="screen">
 		html, body {
@@ -78,11 +77,13 @@ try {
     						<button type="submit" class="btn btn-danger btn-block rounded-0 border">Delete</button>
     					</form>
               <div class="cardbox-comments mt-2">
-                <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
-                <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn btn-warning" style="color:white">comment</button>
-                <br/>
 
-            </div>
+                <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
+
+                <button class="btn"><i class="fas fa-heart"></i></button>
+                <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
+                <br/>
+              </div>
             <div class="mt-2" id="comment_list">
               <?php
               try {
@@ -111,7 +112,7 @@ try {
 
         </div>
       </main>
-
+      <br/>
       <?php } ?>
 
     </div>
@@ -120,8 +121,12 @@ try {
     {
       console.log(post);
       var comment = document.getElementById(post).value;
+      var str = comment;
       console.log(comment);
-
+      if (str.trim().length == 0) {
+        document.getElementById(post).value = "";
+        return false;
+      }
       if (document.getElementById(post).value != "" && post != "") {
         console.log("done");
         var xhttp = new XMLHttpRequest();
@@ -135,20 +140,13 @@ try {
         xhttp.withCredentials = true;
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
-        // var xhttp = new XMLHttpRequest();
-        // xhttp.onreadystatechange = function() {
-        //   if (this.readyState == 4 && this.status == 200) {
-        //
-        //     document.getElementById("page-content").innerHTML = this.responseText;
-        //     }
-        // };
-        // xhttp.open("GET", "../addcomment.php", true);
-        // xhttp.send();
+
       }
       document.getElementById(post).value = "";
 
     }
     </script>
+
     <?php include_once "../views/footer.php"; ?>
   </body>
 </html>

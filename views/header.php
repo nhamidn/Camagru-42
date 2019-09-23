@@ -1,5 +1,8 @@
 <?php
+  include '../config/database.php';
   session_start();
+// try to update the session in every load
+
   if (empty($_SESSION[username]))
   {
 ?>
@@ -33,6 +36,19 @@
 <?php }
 else if (!empty($_SESSION[username]))
 {
+  // try {
+  //   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+  //   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  //   $querys = $dbh->prepare('SELECT * FROM users WHERE email = :usermail');
+  //   $querys->bindParam(':usermail', $_SESSION[user_mail], PDO::PARAM_STR);
+  //   $querys->execute();
+  //   $inf= array();
+  //   $inf = $querys->fetch(PDO::FETCH_ASSOC);
+  //   $_SESSION[username] = $inf['username'];
+  // } catch (PDOException $e) {
+  //   echo 'Error: '.$e->getMessage();
+  //   exit();
+  // }
 ?>
 <header class="card heighmin" id="myheader">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">

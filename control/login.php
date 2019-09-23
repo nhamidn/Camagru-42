@@ -7,7 +7,7 @@ if (empty($_POST["luname"]) || empty($_POST["lpass"])) {
     exit();
 }
 else {
-  $who = $_POST["luname"];
+  $who = strtolower(trim($_POST["luname"]));
   $pass = hash(Whirlpool, $_POST["lpass"]);
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -30,6 +30,7 @@ else {
       $verified = $data['verified'];
       if ($upass == $pass) {
         if ($verified == 'Y') {
+          $_SESSION[user_mail] = $data['email'];
           $_SESSION[username] = $who;
           $_SESSION[logout] = hash(Whirlpool, bin2hex(uniqid($_SESSION[username], true)));
           header("Location: ../index.php");
