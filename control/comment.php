@@ -33,6 +33,11 @@
       }
     }
   }
+  // Send mail notification
+
+    
+
+  //-----------------------
 ?>
 <?php
 try {
