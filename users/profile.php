@@ -66,7 +66,7 @@ try {
       while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
         ?>
 
-      <main style="margin-top:15px">
+      <main style="margin-top:15px" id="posts_list">
         <div class="container">
 
 
@@ -81,7 +81,28 @@ try {
                 <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
                 <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn btn-warning" style="color:white">comment</button>
                 <br/>
-                <hr>
+
+            </div>
+            <div class="mt-2" id="comment_list">
+              <?php
+              try {
+                $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $com = $dbh->prepare('SELECT * FROM comments WHERE picture_id = :picture ORDER BY id DESC');
+                $com->bindParam(':picture', $data['picture'], PDO::PARAM_STR);
+                $com->execute();
+              } catch (PDOException $e) {
+                echo 'Error: '.$e->getMessage();
+                exit();
+              }
+              $content = array();
+              while ($content = $com->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                <hr style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
+                <strong style="color:green"><?php echo $content['username'].": ";?></strong><?php  echo $content['comment'];  ?>
+                <?php
+              }
+              ?>
             </div>
             </div>
           </div>
@@ -104,13 +125,28 @@ try {
       if (document.getElementById(post).value != "" && post != "") {
         console.log("done");
         var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("page-content").innerHTML = this.responseText;
+            }
+        };
         var params = "cpicture=" + post + "&ccontent=" + comment;
         xhttp.open('POST', 'http://localhost/control/comment.php');
         xhttp.withCredentials = true;
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
+        // var xhttp = new XMLHttpRequest();
+        // xhttp.onreadystatechange = function() {
+        //   if (this.readyState == 4 && this.status == 200) {
+        //
+        //     document.getElementById("page-content").innerHTML = this.responseText;
+        //     }
+        // };
+        // xhttp.open("GET", "../addcomment.php", true);
+        // xhttp.send();
       }
       document.getElementById(post).value = "";
+
     }
     </script>
     <?php include_once "../views/footer.php"; ?>

@@ -1,40 +1,10 @@
 <?php
-  session_start();
-  include '../config/database.php';
-  if (empty($_SESSION[username])) {
-    header("Location: ../login.php?status=Please login to make comments and likes");
-    exit();
-  }
-  if(!empty($_POST['cpicture']) and !empty($_POST['ccontent'])){
-    if (!empty($_SESSION[username])) {
-      try {
-        $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = $dbh->prepare('SELECT COUNT(*) FROM posts WHERE picture = :cpic');
-        $query->bindParam(':cpic', $_POST['cpicture'], PDO::PARAM_STR);
-        $query->execute();
-      } catch (PDOException $e) {
-        echo 'Error: '.$e->getMessage();
-        exit();
-      }
-      if ($query->fetchColumn()) {
-        try {
-          $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-          $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-          $query = $dbh->prepare("INSERT INTO comments (username, picture_id, comment) VALUES (:cuname, :cpicture, :content)");
-          $query->bindParam(':cuname', $_SESSION[username], PDO::PARAM_STR);
-          $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
-          $query->bindParam(':content', htmlspecialchars($_POST['ccontent']), PDO::PARAM_STR);
-          $query->execute();
-        } catch (PDOException $e) {
-          echo 'Error: '.$e->getMessage();
-          exit();
-        }
-      }
-    }
-  }
-?>
-<?php
+session_start();
+include './config/database.php';
+if (empty($_SESSION[username])) {
+  header("Location: ../login.php?status=Please login to access this page");
+  exit();
+}
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -48,12 +18,16 @@ try {
 
 
 <div id="page-content" class="bg-white">
+
   <?php
   $data = array();
   while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
     ?>
+
   <main style="margin-top:15px" id="posts_list">
     <div class="container">
+
+
       <div class="row justify-content-center">
         <div class="card card-body col-md-6 bg-light">
           <img class="img-fluid border rounded-top" <?php echo "src='../images/".$data['picture'].".png'" ?> ></img>
@@ -90,7 +64,12 @@ try {
         </div>
         </div>
       </div>
+
+
+
     </div>
   </main>
+
   <?php } ?>
+
 </div>
