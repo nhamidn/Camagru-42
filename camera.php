@@ -166,16 +166,19 @@
       	return false;
     	}
       var file = files[0];
+			if (file) {
 			if(!(/image/i).test(file.type)){
 				return false;
 			}
+		}
       reader = new FileReader();
       reader.onload = function(event){
         var img = new Image;
         img.onload = UpdatePreviewCanvas;
         img.src = event.target.result;
       }
-      reader.readAsDataURL(file);
+			if (file)
+      	reader.readAsDataURL(file);
 		}
 
 

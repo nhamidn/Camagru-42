@@ -32,6 +32,7 @@ else {
         if ($verified == 'Y') {
           $_SESSION[user_mail] = $data['email'];
           $_SESSION[username] = $who;
+          $_SESSION[user_id] = $data['id'];
           $_SESSION[logout] = hash(Whirlpool, bin2hex(uniqid($_SESSION[username], true)));
           header("Location: ../index.php");
         } else {
