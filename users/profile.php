@@ -152,6 +152,7 @@ try {
         document.getElementById(post).value = "";
         return false;
       }
+
       if (document.getElementById(post).value != "" && post != "") {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {

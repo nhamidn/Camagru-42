@@ -5,8 +5,8 @@
     header("Location: ../login.php?status=Please login to make comments and likes");
     exit();
   }
-  if(!empty($_POST['cpicture']) and !empty($_POST['ccontent'])) {
-    if (!empty($_SESSION[username])) {
+  if(!empty($_POST['cpicture']) && !empty($_POST['ccontent'])) {
+    if (!empty($_SESSION[username])  && strlen($_POST['ccontent']) <= 255) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
