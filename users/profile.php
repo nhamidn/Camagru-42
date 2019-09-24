@@ -59,7 +59,7 @@ try {
   <body class="d-flex flex-column">
     <?php include_once "../views/header.php"; ?>
     <div id="page-content" class="bg-white">
-      <p class="text-center bg-warning" style="color:white;margin-bottom: 0rem;font-size:2vw"><?php echo $_SESSION[username]; ?>'s Profile</p>
+      <p class="text-center" style="color:#ffc107;margin-bottom: 0rem;font-size:2vw"><?php echo $_SESSION[username]; ?>'s Profile</p>
       <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
 
       <?php
@@ -81,8 +81,23 @@ try {
               <div class="cardbox-comments mt-2">
 
                 <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
+                <?php
 
-                <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"></i></button>
+                try {
+                  $newdbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+                  $newdbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                  $like = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE picture_id = :lpicture');
+                  $like->bindParam(':lpicture', $data['picture'], PDO::PARAM_STR);
+                  $like->execute();
+                  $totallikes = $like->fetchColumn();
+                } catch (PDOException $e) {
+                  echo 'Error: '.$e->getMessage();
+                  exit();
+                }
+
+
+                 ?>
+                <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"> <?php echo $totallikes; ?></i></button>
                 <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
                 <br/>
               </div>

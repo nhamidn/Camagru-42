@@ -64,6 +64,12 @@ try {
           </form>
           <div class="cardbox-comments mt-2">
             <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
+
+            <?php
+
+
+             ?>
+
             <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"></i></button>
             <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
             <br/>
