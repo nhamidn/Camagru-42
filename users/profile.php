@@ -84,7 +84,7 @@ try {
                 <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
                 <br/>
               </div>
-            <div class="mt-2" id="comment_list">
+            <div id="comment_list">
               <?php
               try {
                 $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -99,7 +99,7 @@ try {
               $content = array();
               while ($content = $com->fetch(PDO::FETCH_ASSOC)) {
                 ?>
-                <hr style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
+                <hr style="margin-top: 0.2rem;margin-bottom: 0.5rem;">
                 <strong style="color:green"><?php echo $content['username'].": ";?></strong><?php  echo $content['comment'];  ?>
                 <?php
               }
@@ -151,31 +151,22 @@ try {
     }
     function like(post)
     {
-      console.log('likebtn_'+post);
-      document.getElementById('likebtn_'+post).style.color = 'red';
+      // console.log('likebtn_'+post);
+
       // var comment = document.getElementById(post).value;
-      // var str = comment;
+      var str = post;
       // console.log(comment);
-      // if (str.trim().length == 0) {
-      //   document.getElementById(post).value = "";
-      //   return false;
-      // }
-      // if (document.getElementById(post).value != "" && post != "") {
-      //   console.log("done");
-      //   var xhttp = new XMLHttpRequest();
-      //   xhttp.onreadystatechange = function() {
-      //     if (this.readyState == 4 && this.status == 200) {
-      //       document.getElementById("page-content").innerHTML = this.responseText;
-      //       }
-      //   };
-      //   var params = "cpicture=" + post + "&ccontent=" + comment;
-      //   xhttp.open('POST', 'http://localhost/control/comment.php');
-      //   xhttp.withCredentials = true;
-      //   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      //   xhttp.send(params);
-      //
-      // }
-      // document.getElementById(post).value = "";
+      if (str.trim().length == 0) {
+        return false;
+      }
+      var xhttp = new XMLHttpRequest();
+
+      var params = "lpicture=" + post;
+      xhttp.open('POST', 'http://localhost/control/like.php');
+      xhttp.withCredentials = true;
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send(params);
+      document.getElementById('likebtn_'+post).style.color = 'red';
 
     }
     </script>

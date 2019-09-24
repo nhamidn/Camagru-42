@@ -86,7 +86,7 @@
 					<button type="button"  id="startbutton" class="btn btn-sm btn-primary mt-auto" disabled>Take Picture</button><br/><br/>
 					<div class="input-group">
   					<div class="custom-file">
-    					<input type="file" disabled accept="image/*" class="custom-file-input" id="imginput" onclick="clear();" onchange="return ShowImagePreview(this.files);"/>
+    					<input type="file" accept="image/*" class="custom-file-input" id="imginput" onclick="clear();" onchange="return ShowImagePreview(this.files);"/>
     					<label class="custom-file-label" for="inputGroupFile01" style="font-size:1vw;">Choose file</label>
   					</div>
 					</div>
@@ -113,7 +113,7 @@
 					<br/>
 					</div>
 					<div class="col-md-6">
-						<img id="camwithstick" class="imgoncam img-fluid" src="http://10.12.7.13/stickers/1.png" alt="sticker" style="position:absolute;width:30%;height:auto;display:none">
+						<img id="camwithstick" class="imgoncam img-fluid" style="position:absolute;width:30%;height:auto;display:none">
 						<canvas class="img-fluid border border-dark" id="canvas"></canvas>
 						<br/>
 						<hr>
@@ -177,6 +177,8 @@
 		{
     var img = this;
     var canvas = document.getElementById('canvas');
+		canvas.height = 768;
+		canvas.width = 1024;
     var context = canvas.getContext( '2d' );
 
     var world = new Object();
@@ -205,6 +207,8 @@
 		context.fillStyle = "white";
 		context.fillRect(0, 0, canvas.width, canvas.height);
     context.drawImage(img, x, y, UseWidth, UseHeight);
+
+		document.getElementById('filter').value = "nostick";
 		document.getElementById("camwithstick").style.display = "block";
 		document.getElementById("upload").disabled = false;
 		document.getElementById('monatge').value = canvas.toDataURL('image/png');
@@ -219,8 +223,8 @@
 			function stickclick(stick, id)
 			{
 				if (id == stick) {
-					document.getElementById("startbutton").disabled = false;
-					document.getElementById("imginput").disabled = false;
+					if (document.getElementById("startbutton").name == "true")
+						document.getElementById("startbutton").disabled = false;
 					if (stick == "1" || stick == "2" || stick == "3" || stick == "4") {
 						document.getElementById("camwithstick").src = "http://10.12.7.13/stickers/"+stick+".png";
 					}

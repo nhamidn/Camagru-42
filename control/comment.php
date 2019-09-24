@@ -69,7 +69,7 @@ try {
             <br/>
 
         </div>
-        <div class="mt-2" id="comment_list">
+        <div id="comment_list">
           <?php
           try {
             $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -84,7 +84,7 @@ try {
           $content = array();
           while ($content = $com->fetch(PDO::FETCH_ASSOC)) {
             ?>
-            <hr style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
+            <hr style="margin-top: 0.2rem;margin-bottom: 0.5rem;">
             <strong style="color:green"><?php echo $content['username'].": ";?></strong><?php  echo $content['comment'];  ?>
             <?php
           }

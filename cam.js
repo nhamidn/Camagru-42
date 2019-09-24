@@ -24,12 +24,16 @@ if (navigator.mediaDevices.getUserMedia) {
     video.srcObject = stream;
   }
   // video.srcObject=stream;
+  var show = document.getElementById("startbutton");
+  document.getElementById("startbutton").setAttribute("name", "true");
   video.play();
 })
 .catch(function (e) { exit(); });
-}else {
+} else {
   navigator.getMedia({video: true},function(stream) {
-      video.srcObject=stream;
+      video.srcObject = stream;
+      var show = document.getElementById("startbutton");
+      document.getElementById("startbutton").setAttribute("name", "true");
       video.play();
     },
 
@@ -39,9 +43,10 @@ if (navigator.mediaDevices.getUserMedia) {
     }
 
   );
-    }
+}
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
+
       height = video.videoHeight / (video.videoWidth/width);
 
       video.setAttribute('width', width);
