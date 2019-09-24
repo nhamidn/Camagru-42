@@ -73,6 +73,9 @@ try {
 
           <div class="row justify-content-center">
             <div class="card card-body col-md-6 bg-light">
+              <p class="bg-light" style="color:black;margin-bottom: 0rem;margin-top: 0rem;font-size:1.5vw"><strong><?php echo $data['username']; ?></strong></p>
+              <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
+
               <img class="img-fluid border rounded-top" <?php echo "src='../images/".$data['picture'].".png'" ?> ></img>
               <form class="" action="../control/delete.php" method="post">
     						<input id="monatge"<?php echo "value='".$data['picture']."'" ?> value="" name="montage" type="hidden"/>
