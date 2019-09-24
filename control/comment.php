@@ -67,10 +67,27 @@ try {
 
             <?php
 
+            try {
+              $newdbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+              $newdbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $like = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE picture_id = :lpicture');
+              $like->bindParam(':lpicture', $data['picture'], PDO::PARAM_STR);
+              $like->execute();
+              $totallikes = $like->fetchColumn();
+              $isliker = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE username = :liker AND picture_id = :lphoto');
+              $isliker->bindParam(':liker', $_SESSION[username], PDO::PARAM_STR);
+              $isliker->bindParam(':lphoto', $data['picture'], PDO::PARAM_STR);
+              $isliker->execute();
+              $liker = $isliker->fetchColumn();
+            } catch (PDOException $e) {
+              echo 'Error: '.$e->getMessage();
+              exit();
+            }
+
 
              ?>
 
-            <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"></i></button>
+            <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn" <?php if ($liker) echo "style='color: red;'"; ?>><i class="fas fa-heart"></i> <?php if ($totallikes>0) {echo $totallikes;} ?> </button>
             <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
             <br/>
 

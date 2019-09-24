@@ -90,6 +90,11 @@ try {
                   $like->bindParam(':lpicture', $data['picture'], PDO::PARAM_STR);
                   $like->execute();
                   $totallikes = $like->fetchColumn();
+                  $isliker = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE username = :liker AND picture_id = :lphoto');
+                  $isliker->bindParam(':liker', $_SESSION[username], PDO::PARAM_STR);
+                  $isliker->bindParam(':lphoto', $data['picture'], PDO::PARAM_STR);
+                  $isliker->execute();
+                  $liker = $isliker->fetchColumn();
                 } catch (PDOException $e) {
                   echo 'Error: '.$e->getMessage();
                   exit();
@@ -97,7 +102,7 @@ try {
 
 
                  ?>
-                <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"> <?php echo $totallikes; ?></i></button>
+                <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn" <?php if ($liker) echo "style='color: red;'"; ?>><i id="counter_<?php echo $data['picture'];?>" class="fas fa-heart"> <?php if ($totallikes>0) {echo $totallikes;} ?> </i></button>
                 <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
                 <br/>
               </div>
@@ -183,10 +188,20 @@ try {
       xhttp.withCredentials = true;
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.send(params);
-      if (document.getElementById('likebtn_'+post).style.color == '')
+      if (document.getElementById('likebtn_'+post).style.color == '') {
+        var node = document.getElementById('counter_'+post);
+        var htmlContent = node.innerHTML.trim();
+        htmlContent++;
+        node.innerHTML = " "+htmlContent+" ";
         document.getElementById('likebtn_'+post).style.color = 'red';
-      else
+      }
+      else {
+        var node = document.getElementById('counter_'+post);
+        var htmlContent = node.innerHTML.trim();
+        htmlContent--;
+        node.innerHTML = " "+htmlContent+" ";
         document.getElementById('likebtn_'+post).style.color = '';
+      }
 
     }
     </script>
