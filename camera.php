@@ -77,7 +77,10 @@
 		<?php include_once "views/header.php"; ?>
 		<div id="page-content" class="card border-0 justify-content-center">
 			<div class="parent-container d-flex px-md-4">
+
 				<div class="container card bg-light">
+					<p class="text-center" style="margin-bottom: 0rem;font-size:2vw">Camera</p>
+					<hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
 					<div class="row py-md-4">
 					<div class="col-md-6">
 					<video class="img-fluid border border-dark" id="video"></video>
@@ -127,7 +130,10 @@
 	</div>
 
 	<div class="container card bg-light">
+		<p class="text-center" style="margin-bottom: 0rem;font-size:2vw">Your Pictures</p>
+		<hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
 		<div class="row py-md-4">
+
 			<?php
 			$data = array();
 			while ($data = $query->fetch(PDO::FETCH_ASSOC)) {0

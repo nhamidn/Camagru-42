@@ -59,6 +59,8 @@ try {
   <body class="d-flex flex-column">
     <?php include_once "../views/header.php"; ?>
     <div id="page-content" class="bg-white">
+      <p class="text-center bg-warning" style="color:white;margin-bottom: 0rem;font-size:2vw"><?php echo $_SESSION[username]; ?>'s Profile</p>
+      <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
 
       <?php
       $data = array();
@@ -166,7 +168,10 @@ try {
       xhttp.withCredentials = true;
       xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhttp.send(params);
-      document.getElementById('likebtn_'+post).style.color = 'red';
+      if (document.getElementById('likebtn_'+post).style.color == '')
+        document.getElementById('likebtn_'+post).style.color = 'red';
+      else
+        document.getElementById('likebtn_'+post).style.color = '';
 
     }
     </script>

@@ -28,7 +28,7 @@ if (navigator.mediaDevices.getUserMedia) {
   document.getElementById("startbutton").setAttribute("name", "true");
   video.play();
 })
-.catch(function (e) { exit(); });
+.catch(function (e) { return false; });
 } else {
   navigator.getMedia({video: true},function(stream) {
       video.srcObject = stream;
