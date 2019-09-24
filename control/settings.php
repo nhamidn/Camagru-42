@@ -79,6 +79,38 @@ if (empty($_SESSION[username])) {
       $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
       $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
       $query->execute();
+      // $_SESSION[username] = $_POST["nuname"];
+
+      try {
+        $query = $dbh->prepare("UPDATE posts SET username = :newuser WHERE username = :olduser");
+        $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
+        $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+        $query->execute();
+        // $_SESSION[username] = $_POST["nuname"];
+      } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
+        exit();
+      }
+      try {
+        $query = $dbh->prepare("UPDATE likes SET username = :newuser WHERE username = :olduser");
+        $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
+        $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+        $query->execute();
+        // $_SESSION[username] = $_POST["nuname"];
+      } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
+        exit();
+      }
+      try {
+        $query = $dbh->prepare("UPDATE comments SET username = :newuser WHERE username = :olduser");
+        $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
+        $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+        $query->execute();
+        // $_SESSION[username] = $_POST["nuname"];
+      } catch (PDOException $e) {
+        echo 'Error: '.$e->getMessage();
+        exit();
+      }
       $_SESSION[username] = $_POST["nuname"];
     } catch (PDOException $e) {
       echo 'Error: '.$e->getMessage();
