@@ -26,37 +26,6 @@
           $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
           $query->bindParam(':content', htmlspecialchars($_POST['ccontent']), PDO::PARAM_STR);
           $query->execute();
-          try {
-            $query = $dbh->prepare("SELECT * FROM posts WHERE picture = :cpicture");
-            $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
-            $query->execute();
-            $infos = array();
-            $infos = $query->fetch(PDO::FETCH_ASSOC);
-            try {
-              $query = $dbh->prepare("SELECT * FROM users WHERE username = :uname");
-              $query->bindParam(':uname', $infos['username'], PDO::PARAM_STR);
-              $query->execute();
-              $mailinfos = array();
-              $mailinfos = $query->fetch(PDO::FETCH_ASSOC);
-
-              $who = $mailinfos['username'];
-              $whomail = $mailinfos['email'];
-
-              // Send mail notification
-              $subject = "User Notification";
-              $headers = 'From: <nhamid@student.1337.ma>';
-              $message = 'Hello ' . $who . ", " . $_SESSION[username] . ' has just left a comment on one of your pictures.';
-              mail($whomail, $subject, $message, $headers);
-              //-----------------------
-
-            } catch (PDOException $e) {
-              echo 'Error: '.$e->getMessage();
-              exit();
-            }
-          } catch (PDOException $e) {
-            echo 'Error: '.$e->getMessage();
-            exit();
-          }
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
           exit();
@@ -95,7 +64,7 @@ try {
           </form>
           <div class="cardbox-comments mt-2">
             <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
-            <button class="btn"><i class="fas fa-heart"></i></button>
+            <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"></i></button>
             <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
             <br/>
 

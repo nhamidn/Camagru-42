@@ -80,7 +80,7 @@ try {
 
                 <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
 
-                <button class="btn"><i class="fas fa-heart"></i></button>
+                <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn"><i class="fas fa-heart"></i></button>
                 <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
                 <br/>
               </div>
@@ -119,16 +119,15 @@ try {
     <script type="text/javascript">
     function comment(post)
     {
-      console.log(post);
+      // console.log(post);
       var comment = document.getElementById(post).value;
       var str = comment;
-      console.log(comment);
+      // console.log(comment);
       if (str.trim().length == 0) {
         document.getElementById(post).value = "";
         return false;
       }
       if (document.getElementById(post).value != "" && post != "") {
-        console.log("done");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
@@ -140,9 +139,43 @@ try {
         xhttp.withCredentials = true;
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send(params);
-
+        var xmail = new XMLHttpRequest();
+        var paramsmail = "cpicture=" + post + "&ccontent=" + comment;
+        xmail.open('POST', 'http://localhost/control/commentmail.php');
+        xmail.withCredentials = true;
+        xmail.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmail.send(paramsmail);
       }
       document.getElementById(post).value = "";
+
+    }
+    function like(post)
+    {
+      console.log('likebtn_'+post);
+      document.getElementById('likebtn_'+post).style.color = 'red';
+      // var comment = document.getElementById(post).value;
+      // var str = comment;
+      // console.log(comment);
+      // if (str.trim().length == 0) {
+      //   document.getElementById(post).value = "";
+      //   return false;
+      // }
+      // if (document.getElementById(post).value != "" && post != "") {
+      //   console.log("done");
+      //   var xhttp = new XMLHttpRequest();
+      //   xhttp.onreadystatechange = function() {
+      //     if (this.readyState == 4 && this.status == 200) {
+      //       document.getElementById("page-content").innerHTML = this.responseText;
+      //       }
+      //   };
+      //   var params = "cpicture=" + post + "&ccontent=" + comment;
+      //   xhttp.open('POST', 'http://localhost/control/comment.php');
+      //   xhttp.withCredentials = true;
+      //   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      //   xhttp.send(params);
+      //
+      // }
+      // document.getElementById(post).value = "";
 
     }
     </script>
