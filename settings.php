@@ -1,11 +1,25 @@
 <?php
 	session_start();
+	include './config/database.php';
 	// if(session_status() == PHP_SESSION_ACTIVE)
 	// 	session_regenerate_id();
   $_SESSION[page] = "settings";
 	if (empty($_SESSION[username]))
 		header("Location: ./index.php");
   	// include_once "views/header.php";
+	try {
+		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$query = $dbh->prepare('SELECT * FROM users WHERE username = :uname');
+		$query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+		$query->execute();
+		$data = array();
+		$data = $query->fetch(PDO::FETCH_ASSOC);
+	} catch (PDOException $e) {
+		echo 'Error: '.$e->getMessage();
+		exit();
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -74,9 +88,34 @@
 			 	<button type="submit" class="btn btn-warning" style="color: white">Submit</button>
 				<button type="button" class="btn btn-danger" onclick="window.location='password.php'" style="color: white">Change your password</button>
 		 	</form>
+			<hr>
+			<div class="custom-control custom-switch">
+  			<input type="checkbox" class="custom-control-input" id="customSwitches" onclick="notification()">
+  			<label class="custom-control-label" for="customSwitches">Email Notifications</label>
+			</div>
 			</div>
 		</div>
 		</div>
 		<?php include_once "views/footer.php"; ?>
   </body>
+	<script type="text/javascript">
+	<?php if ($data['notification'] == 'Y') {
+	echo "document.getElementById('customSwitches').checked = true;";
+	} else echo "document.getElementById('customSwitches').checked = false;";?>
+	function notification() {
+	  var checkBox = document.getElementById("customSwitches");
+		var notification;
+	  if (checkBox.checked == true){
+			notification = "Y";
+	  } else {
+			notification = "N";
+	  }
+		var xhttp = new XMLHttpRequest();
+		var params = "notification=" + notification;
+		xhttp.open('POST', 'http://localhost/control/notification.php');
+		xhttp.withCredentials = true;
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(params);
+	}
+	</script>
 </html>

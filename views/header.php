@@ -1,8 +1,6 @@
 <?php
   include '../config/database.php';
   session_start();
-// try to update the session in every load
-
   if (empty($_SESSION[username]))
   {
 ?>
@@ -63,7 +61,7 @@ else if (!empty($_SESSION[username]))
         <?php echo '<a class="nav-link" href="../camera.php">Camera</a>';?>
       </li>
       <li class="nav-item active">
-        <?php echo '<a class="nav-link" href="../index.php">Explorer</a>';?>
+        <?php echo '<a class="nav-link" href="../index.php">Gallery</a>';?>
       </li>
       <li class="nav-item active">
         <?php echo '<a class="nav-link" href="../control/logout.php?token=' . $_SESSION[logout] . '">Disconnect</a>';?>
@@ -72,7 +70,7 @@ else if (!empty($_SESSION[username]))
       if ($_SESSION[page] == "profile") {
         ?>
         <li class="nav-item active">
-          <?php echo '<a class="nav-link" href="../settings.php">Edit Info</a>';?>
+          <?php echo '<a class="nav-link" href="../settings.php">Settings</a>';?>
         </li>
         <?php
       }

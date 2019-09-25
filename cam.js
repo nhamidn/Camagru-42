@@ -10,7 +10,6 @@
 
   navigator.getMedia = (navigator.getUserMedia ||
                         navigator.webkitGetUserMedia ||
-                        // navigator.mozGetUserMedia ||
                         navigator.mediaDevices.getUserMedia||
                         navigator.msGetUserMedia);
 
@@ -41,12 +40,8 @@ if (navigator.mediaDevices.getUserMedia) {
       document.getElementById("startbutton").disabled = true;
       return false;
     }
-
   );
 }
-
-
-
 
   video.addEventListener('canplay', function(ev){
     if (!streaming) {

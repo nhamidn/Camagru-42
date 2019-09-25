@@ -207,7 +207,10 @@ try {
       var node = document.getElementById('counter_'+post);
       var htmlContent = node.innerHTML.trim();
       htmlContent--;
+      if (htmlContent > 0)
       node.innerHTML = " "+htmlContent+" ";
+      else
+      node.innerHTML = " ";
       document.getElementById('likebtn_'+post).style.color = '';
     }
 
