@@ -22,7 +22,6 @@ if (navigator.mediaDevices.getUserMedia) {
   } catch (error) {
     video.srcObject = stream;
   }
-  // video.srcObject=stream;
   var show = document.getElementById("startbutton");
   document.getElementById("startbutton").setAttribute("name", "true");
   video.play();

@@ -106,7 +106,6 @@ if (empty($_SESSION[username])) {
         $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
         $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
         $query->execute();
-        // $_SESSION[username] = $_POST["nuname"];
       } catch (PDOException $e) {
         echo 'Error: '.$e->getMessage();
         exit();

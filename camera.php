@@ -241,13 +241,6 @@
 				}
 			}
 		</script>
-
 		<?php include_once "views/footer.php"; ?>
 	</body>
-	<!-- <div class="col-md-6 card">
-		<img class="img-fluid border border-dark" src="./images/4eb887c4f8800e470ae100529f8d2159.png"></img>
-	</div>
-	<div class="col-md-6 card">
-		<img class="img-fluid border border-dark" src="./images/cde59b41437f1441967e3f6398049c70.png"></img>
-	</div> -->
 </html>
