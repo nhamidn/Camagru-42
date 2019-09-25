@@ -204,27 +204,36 @@
 		if (str.trim().length == 0) {
 			return false;
 		}
+		var node = document.getElementById('counter_'+post);
+		var icon = document.getElementById('likebtn_'+post);
+		var htmlContent;
 		var xhttp = new XMLHttpRequest();
-
+		xhttp.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				console.log(this.responseText);
+				if (this.responseText === "like") {
+					htmlContent = node.innerHTML.trim();
+					htmlContent++;
+					icon.style.color = 'red';
+				} else if (this.responseText === "dislike"){
+					htmlContent = node.innerHTML.trim();
+					htmlContent--;
+					icon.style.color = '';
+				} else if (this.responseText === "not logged") {
+					window.location.replace("http://localhost/login.php?status=Please login or create an account to like and comment picture !");
+			}
+			if (htmlContent > 0)
+				node.innerHTML = " "+htmlContent+" ";
+			else
+				node.innerHTML = " ";
+		}
+		};
 		var params = "lpicture=" + post;
 		xhttp.open('POST', 'http://localhost/control/like.php');
 		xhttp.withCredentials = true;
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send(params);
-		if (document.getElementById('likebtn_'+post).style.color == '') {
-			var node = document.getElementById('counter_'+post);
-			var htmlContent = node.innerHTML.trim();
-			htmlContent++;
-			node.innerHTML = " "+htmlContent+" ";
-			document.getElementById('likebtn_'+post).style.color = 'red';
-		}
-		else {
-			var node = document.getElementById('counter_'+post);
-			var htmlContent = node.innerHTML.trim();
-			htmlContent--;
-			node.innerHTML = " "+htmlContent+" ";
-			document.getElementById('likebtn_'+post).style.color = '';
-		}
+
 
 	}
 	</script>

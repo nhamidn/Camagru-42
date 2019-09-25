@@ -2,7 +2,7 @@
   session_start();
   include '../config/database.php';
   if (empty($_SESSION[username])) {
-    header("Location: ../login.php?status=Please login to make comments and likes");
+    echo "not logged";
     exit();
   }
   if(!empty($_POST['lpicture'])) {
@@ -39,6 +39,7 @@
           $query->bindParam(':luname', $_SESSION[username], PDO::PARAM_STR);
           $query->bindParam(':lpicture', $_POST['lpicture'], PDO::PARAM_STR);
           $query->execute();
+          echo "like";
           try {
             $query1 = $dbh->prepare("SELECT * FROM posts WHERE picture = :thephoto");
             $query1->bindParam(':thephoto', $_POST['lpicture'], PDO::PARAM_STR);
@@ -59,8 +60,8 @@
               $subject = "User Notification";
               $headers = 'From: <nhamid@student.1337.ma>';
               $message = 'Hello ' . $maildata['username'] . ", " . $_SESSION[username] . ' has just liked one of your pictures.';
-              if ($maildata['notification'] == 'Y')
-                mail($whomail, $subject, $message, $headers);
+              // if ($maildata['notification'] == 'Y')
+              //   mail($whomail, $subject, $message, $headers);
               //-----------------------
 
 
@@ -85,11 +86,14 @@
           $query->bindParam(':luname', $_SESSION[username], PDO::PARAM_STR);
           $query->bindParam(':lpicture', $_POST['lpicture'], PDO::PARAM_STR);
           $query->execute();
+          echo "dislike";
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
           exit();
         }
       }
+    } else {
+      echo "not logged";
     }
   }
 
