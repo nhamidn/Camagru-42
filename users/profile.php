@@ -141,75 +141,76 @@ try {
       <?php } ?>
 
     </div>
-    <script type="text/javascript">
-    function comment(post)
-    {
-      // console.log(post);
-      var comment = document.getElementById(post).value;
-      var str = comment;
-      // console.log(comment);
-      if (str.trim().length == 0) {
-        document.getElementById(post).value = "";
-        return false;
-      }
 
-      if (document.getElementById(post).value != "" && post != "") {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("page-content").innerHTML = this.responseText;
-            }
-        };
-        var params = "cpicture=" + post + "&ccontent=" + comment;
-        xhttp.open('POST', 'http://localhost/control/comment.php');
-        xhttp.withCredentials = true;
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(params);
-        var xmail = new XMLHttpRequest();
-        var paramsmail = "cpicture=" + post + "&ccontent=" + comment;
-        xmail.open('POST', 'http://localhost/control/commentmail.php');
-        xmail.withCredentials = true;
-        xmail.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmail.send(paramsmail);
-      }
-      document.getElementById(post).value = "";
-
-    }
-    function like(post)
-    {
-      // console.log('likebtn_'+post);
-
-      // var comment = document.getElementById(post).value;
-      var str = post;
-      // console.log(comment);
-      if (str.trim().length == 0) {
-        return false;
-      }
-      var xhttp = new XMLHttpRequest();
-
-      var params = "lpicture=" + post;
-      xhttp.open('POST', 'http://localhost/control/like.php');
-      xhttp.withCredentials = true;
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send(params);
-      if (document.getElementById('likebtn_'+post).style.color == '') {
-        var node = document.getElementById('counter_'+post);
-        var htmlContent = node.innerHTML.trim();
-        htmlContent++;
-        node.innerHTML = " "+htmlContent+" ";
-        document.getElementById('likebtn_'+post).style.color = 'red';
-      }
-      else {
-        var node = document.getElementById('counter_'+post);
-        var htmlContent = node.innerHTML.trim();
-        htmlContent--;
-        node.innerHTML = " "+htmlContent+" ";
-        document.getElementById('likebtn_'+post).style.color = '';
-      }
-
-    }
-    </script>
 
     <?php include_once "../views/footer.php"; ?>
   </body>
+  <script type="text/javascript">
+  function comment(post)
+  {
+    // console.log(post);
+    var comment = document.getElementById(post).value;
+    var str = comment;
+    // console.log(comment);
+    if (str.trim().length == 0) {
+      document.getElementById(post).value = "";
+      return false;
+    }
+
+    if (document.getElementById(post).value != "" && post != "") {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById("page-content").innerHTML = this.responseText;
+          }
+      };
+      var params = "cpicture=" + post + "&ccontent=" + comment;
+      xhttp.open('POST', 'http://localhost/control/comment.php');
+      xhttp.withCredentials = true;
+      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhttp.send(params);
+      var xmail = new XMLHttpRequest();
+      var paramsmail = "cpicture=" + post + "&ccontent=" + comment;
+      xmail.open('POST', 'http://localhost/control/commentmail.php');
+      xmail.withCredentials = true;
+      xmail.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xmail.send(paramsmail);
+    }
+    document.getElementById(post).value = "";
+
+  }
+  function like(post)
+  {
+    // console.log('likebtn_'+post);
+
+    // var comment = document.getElementById(post).value;
+    var str = post;
+    // console.log(comment);
+    if (str.trim().length == 0) {
+      return false;
+    }
+    var xhttp = new XMLHttpRequest();
+
+    var params = "lpicture=" + post;
+    xhttp.open('POST', 'http://localhost/control/like.php');
+    xhttp.withCredentials = true;
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(params);
+    if (document.getElementById('likebtn_'+post).style.color == '') {
+      var node = document.getElementById('counter_'+post);
+      var htmlContent = node.innerHTML.trim();
+      htmlContent++;
+      node.innerHTML = " "+htmlContent+" ";
+      document.getElementById('likebtn_'+post).style.color = 'red';
+    }
+    else {
+      var node = document.getElementById('counter_'+post);
+      var htmlContent = node.innerHTML.trim();
+      htmlContent--;
+      node.innerHTML = " "+htmlContent+" ";
+      document.getElementById('likebtn_'+post).style.color = '';
+    }
+
+  }
+  </script>
 </html>

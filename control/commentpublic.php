@@ -2,10 +2,55 @@
   session_start();
   include '../config/database.php';
   if (empty($_SESSION[username])) {
-    header("Location: ../login.php?status=Please login to make comments and likes");
+    ?>
+    <?php include_once "../views/header.php"; ?>
+    <div id="errtext" class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
+					Please login or create an account to like and comment picture  !
+		</div>
+    <div id="page-content" class="card border-0 justify-content-center">
+			<div id="justify">
+			<div class="card card-body col-md-6 mb-4 bg-light">
+		 	<form action="/control/login.php" method="post">
+				<div class="form-group">
+				 	<label for="InputUname">Username</label>
+				 	<input type="text" class="form-control" name="luname" id="exampleInputEmail1" placeholder="Enter Username" required>
+			 	</div>
+			 	<div class="form-group">
+				 	<label for="InputPassword">Password</label>
+				 	<input type="password" class="form-control" name="lpass" id="exampleInputPassword1" placeholder="Password" required>
+			 	</div>
+			 	<button type="submit" class="btn btn-warning" style="color: white">Log in</button>
+				<button type="button" class="btn btn-danger" onclick="recover()" style="color: white">Reset your password</button>
+				<script>
+				var elem;
+				function recover() {
+				  var xhttp = new XMLHttpRequest();
+				  xhttp.onreadystatechange = function() {
+				    if (this.readyState == 4 && this.status == 200) {
+							elem = document.getElementById("justify").innerHTML;
+							document.getElementById("errtext").innerHTML = "<div id='errtext' class='justify-content-center align-self-center' style='text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;'></div>";
+				      document.getElementById("justify").innerHTML = this.responseText;
+				      }
+				  };
+				  xhttp.open("GET", "./reset.php", true);
+				  xhttp.send();
+				}
+				function login() {
+					document.getElementById("errtext").innerHTML = "<div id='errtext' class='justify-content-center align-self-center' style='text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;'></div>";
+					document.getElementById("justify").innerHTML = elem;
+				}
+				</script>
+		 	</form>
+			</div>
+		</div>
+		</div>
+    <?php include_once "../views/footer.php"; ?>
+    <?php
     exit();
   }
   if(!empty($_POST['cpicture']) && !empty($_POST['ccontent'])) {
+    // $comm = $_POST['ccontent']
+    // $len = $comm;
     if (!empty($_SESSION[username]) && strlen($_POST['ccontent']) <= 255) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -31,23 +76,27 @@
           exit();
         }
       }
+
     }
   }
+
 ?>
 <?php
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname ORDER BY id DESC');
-  $query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+  $query = $dbh->prepare('SELECT * FROM posts ORDER BY id DESC');
   $query->execute();
 } catch (PDOException $e) {
   echo 'Error: '.$e->getMessage();
   exit();
-}?>
+}
+?>
 
-
+<?php include_once "../views/header.php"; ?>
 <div id="page-content" class="bg-white">
+  <p class="text-center" style="color:#ffc107;margin-bottom: 0rem;font-size:2vw">GALLERY</p>
+  <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
   <?php
   $data = array();
   while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -57,10 +106,6 @@ try {
       <div class="row justify-content-center">
         <div class="card card-body col-md-6 bg-light">
           <img class="img-fluid border rounded-top" <?php echo "src='../images/".$data['picture'].".png'" ?> ></img>
-          <form class="" action="../control/delete.php" method="post">
-            <input id="monatge"<?php echo "value='".$data['picture']."'" ?> value="" name="montage" type="hidden"/>
-            <button type="submit" class="btn btn-danger btn-block rounded-0 border">Delete</button>
-          </form>
           <div class="cardbox-comments mt-2">
             <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
             <?php
@@ -80,10 +125,11 @@ try {
               echo 'Error: '.$e->getMessage();
               exit();
             }
-             ?>
+            ?>
             <button id="likebtn_<?php echo $data['picture'];?>" name="<?php echo $data['picture'];?>" onclick="like(this.name)" class="btn" <?php if ($liker) echo "style='color: red;'"; ?>><i id="counter_<?php echo $data['picture'];?>" class="fas fa-heart"> <?php if ($totallikes>0) {echo $totallikes;} ?> </i></button>
             <button name="<?php echo $data['picture'];?>" onclick="comment(this.name)" class="btn"><i class="fas fa-paper-plane"></i></button>
             <br/>
+
         </div>
         <div id="comment_list">
           <?php
@@ -112,3 +158,4 @@ try {
   </main>
   <?php } ?>
 </div>
+<?php include_once "./views/footer.php"; ?>

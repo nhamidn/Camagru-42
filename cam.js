@@ -44,6 +44,10 @@ if (navigator.mediaDevices.getUserMedia) {
 
   );
 }
+
+
+
+
   video.addEventListener('canplay', function(ev){
     if (!streaming) {
 
