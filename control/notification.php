@@ -5,7 +5,7 @@
     header("Location: ../index.php");
     exit();
   }
-  if (empty($_SESSION[username])) {
+  if (empty($_SESSION['username'])) {
     exit();
   }
   if(!empty($_POST['notification'])){
@@ -15,7 +15,7 @@
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = $dbh->prepare("UPDATE users SET notification = :state WHERE username = :user");
         $query->bindParam(':state', $_POST['notification'], PDO::PARAM_STR);
-        $query->bindParam(':user', $_SESSION[username], PDO::PARAM_STR);
+        $query->bindParam(':user', $_SESSION['username'], PDO::PARAM_STR);
         $query->execute();
       } catch (PDOException $e) {
         echo 'Error: '.$e->getMessage();

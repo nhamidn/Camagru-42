@@ -1,7 +1,7 @@
 <?php
   include '../config/database.php';
   session_start();
-  if (empty($_SESSION[username]))
+  if (empty($_SESSION['username']))
   {
 ?>
 
@@ -13,7 +13,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
-      <?php if ($_SESSION[page] === "public" || $_SESSION[page] === "reset") { ?>
+      <?php if ($_SESSION['page'] === "public" || $_SESSION['page'] === "reset") { ?>
         <li class="nav-item active">
           <?php echo '<a class="nav-link" href="/register.php">Register</a>';?>
         </li>
@@ -22,8 +22,8 @@
         </li>
       <?php } else { ?>
         <li class="nav-item active">
-          <?php if ($_SESSION[page] === "login") echo '<a class="nav-link" href="/register.php">Register</a>';
-                else if ($_SESSION[page] === "register") echo '<a class="nav-link" href="/login.php">login</a>'; ?>
+          <?php if ($_SESSION['page'] === "login") echo '<a class="nav-link" href="/register.php">Register</a>';
+                else if ($_SESSION['page'] === "register") echo '<a class="nav-link" href="/login.php">login</a>'; ?>
         </li>
       <?php } ?>
     </ul>
@@ -32,7 +32,7 @@
 </header>
 <script type="text/javascript "src="js\button.js"></script>
 <?php }
-else if (!empty($_SESSION[username]))
+else if (!empty($_SESSION['username']))
 {
   // try {
   //   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -64,10 +64,10 @@ else if (!empty($_SESSION[username]))
         <?php echo '<a class="nav-link" href="../index.php">Gallery</a>';?>
       </li>
       <li class="nav-item active">
-        <?php echo '<a class="nav-link" href="../control/logout.php?token=' . $_SESSION[logout] . '">Disconnect</a>';?>
+        <?php echo '<a class="nav-link" href="../control/logout.php?token=' . $_SESSION['logout'] . '">Disconnect</a>';?>
       </li>
       <?php
-      if ($_SESSION[page] == "profile") {
+      if ($_SESSION['page'] == "profile") {
         ?>
         <li class="nav-item active">
           <?php echo '<a class="nav-link" href="../settings.php">Settings</a>';?>
@@ -76,7 +76,7 @@ else if (!empty($_SESSION[username]))
       }
       ?>
       <li class="nav-item active">
-        <?php echo '<a class="nav-link" href="../users/profile.php">' . $_SESSION[username] . '</a>'; ?>
+        <?php echo '<a class="nav-link" href="../users/profile.php">' . $_SESSION['username'] . '</a>'; ?>
       </li>
     </ul>
   </div>

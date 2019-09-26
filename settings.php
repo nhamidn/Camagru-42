@@ -3,15 +3,15 @@
 	include './config/database.php';
 	// if(session_status() == PHP_SESSION_ACTIVE)
 	// 	session_regenerate_id();
-  $_SESSION[page] = "settings";
-	if (empty($_SESSION[username]))
+  $_SESSION['page'] = "settings";
+	if (empty($_SESSION['username']))
 		header("Location: ./index.php");
   	// include_once "views/header.php";
 	try {
 		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$query = $dbh->prepare('SELECT * FROM users WHERE username = :uname');
-		$query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+		$query->bindParam(':uname', $_SESSION['username'], PDO::PARAM_STR);
 		$query->execute();
 		$data = array();
 		$data = $query->fetch(PDO::FETCH_ASSOC);

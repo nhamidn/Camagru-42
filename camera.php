@@ -1,14 +1,14 @@
 <?php
 	session_start();
 	include './config/database.php';
-	$_SESSION[page] = "camera";
-	if (empty($_SESSION[username]))
+	$_SESSION['page'] = "camera";
+	if (empty($_SESSION['username']))
 		header("Location: ../login.php?status=Please login to access this page");
 	try {
 		$dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname ORDER BY id DESC');
-		$query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+		$query->bindParam(':uname', $_SESSION['username'], PDO::PARAM_STR);
 		$query->execute();
 		// $data = array();
 		// while ($data = $query->fetch(PDO::FETCH_ASSOC)) {

@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
-if (empty($_SESSION[username])) {
+if (empty($_SESSION['username'])) {
   header ("Location: ../index.php");
   exit();
 } else if (empty($_POST["nuname"]) && empty($_POST["nemail"])) {
@@ -12,7 +12,7 @@ if (empty($_SESSION[username])) {
     $_POST["nuname"] = strtolower(trim($_POST["nuname"]));
     if (strlen($_POST["nuname"]) < 6 || strlen($_POST["nuname"]) > 50)
       header("Location: ../settings.php?error=Username must have a lenght between 6 and 50!");
-    if ($_POST["nuname"] == $_SESSION[username]) {
+    if ($_POST["nuname"] == $_SESSION['username']) {
       header ("Location: ../settings.php?error=This is your current Username!");
       exit();
     }
@@ -41,7 +41,7 @@ if (empty($_SESSION[username])) {
       $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $query = $dbh->prepare("SELECT * FROM users WHERE username = :uname");
-      $query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+      $query->bindParam(':uname', $_SESSION['username'], PDO::PARAM_STR);
       $query->execute();
       $data = array();
       $data = $query->fetch(PDO::FETCH_ASSOC);
@@ -77,14 +77,14 @@ if (empty($_SESSION[username])) {
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $query = $dbh->prepare("UPDATE users SET username = :newuser WHERE username = :olduser");
       $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
-      $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+      $query->bindParam(':olduser', $_SESSION['username'], PDO::PARAM_STR);
       $query->execute();
       // $_SESSION[username] = $_POST["nuname"];
 
       try {
         $query = $dbh->prepare("UPDATE posts SET username = :newuser WHERE username = :olduser");
         $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
-        $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+        $query->bindParam(':olduser', $_SESSION['username'], PDO::PARAM_STR);
         $query->execute();
         // $_SESSION[username] = $_POST["nuname"];
       } catch (PDOException $e) {
@@ -94,7 +94,7 @@ if (empty($_SESSION[username])) {
       try {
         $query = $dbh->prepare("UPDATE likes SET username = :newuser WHERE username = :olduser");
         $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
-        $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+        $query->bindParam(':olduser', $_SESSION['username'], PDO::PARAM_STR);
         $query->execute();
         // $_SESSION[username] = $_POST["nuname"];
       } catch (PDOException $e) {
@@ -104,13 +104,13 @@ if (empty($_SESSION[username])) {
       try {
         $query = $dbh->prepare("UPDATE comments SET username = :newuser WHERE username = :olduser");
         $query->bindParam(':newuser', $_POST["nuname"], PDO::PARAM_STR);
-        $query->bindParam(':olduser', $_SESSION[username], PDO::PARAM_STR);
+        $query->bindParam(':olduser', $_SESSION['username'], PDO::PARAM_STR);
         $query->execute();
       } catch (PDOException $e) {
         echo 'Error: '.$e->getMessage();
         exit();
       }
-      $_SESSION[username] = $_POST["nuname"];
+      $_SESSION['username'] = $_POST["nuname"];
     } catch (PDOException $e) {
       echo 'Error: '.$e->getMessage();
       exit();
@@ -123,7 +123,7 @@ if (empty($_SESSION[username])) {
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $query = $dbh->prepare("UPDATE users SET email = :newemail WHERE username = :user");
       $query->bindParam(':newemail', $mail, PDO::PARAM_STR);
-      $query->bindParam(':user', $_SESSION[username], PDO::PARAM_STR);
+      $query->bindParam(':user', $_SESSION['username'], PDO::PARAM_STR);
       $query->execute();
     } catch (PDOException $e) {
       echo 'Error: '.$e->getMessage();

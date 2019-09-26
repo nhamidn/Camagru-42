@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
-if (empty($_SESSION[username])) {
+if (empty($_SESSION['username'])) {
   header("Location: ../login.php?status=Please login to access this page");
   exit();
 }
@@ -32,7 +32,7 @@ try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $query = $dbh->prepare("INSERT INTO posts (username, picture) VALUES (:author, :pic)");
-  $query->bindParam(':author', $_SESSION[username], PDO::PARAM_STR);
+  $query->bindParam(':author', $_SESSION['username'], PDO::PARAM_STR);
   $query->bindParam(':pic', $name, PDO::PARAM_STR);
   $query->execute();
 } catch (PDOException $e) {

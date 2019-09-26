@@ -1,16 +1,16 @@
 <?php
 session_start();
 include '../config/database.php';
-if (empty($_SESSION[username])) {
+if (empty($_SESSION['username'])) {
   header("Location: ../login.php?status=Please login to access this page");
   exit();
 }
-$_SESSION[page] = "profile";
+$_SESSION['page'] = "profile";
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname ORDER BY id DESC');
-  $query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+  $query->bindParam(':uname', $_SESSION['username'], PDO::PARAM_STR);
   $query->execute();
 } catch (PDOException $e) {
   echo 'Error: '.$e->getMessage();
@@ -59,7 +59,7 @@ try {
   <body class="d-flex flex-column">
     <?php include_once "../views/header.php"; ?>
     <div id="page-content" class="bg-white">
-      <p class="text-center" style="color:#ffc107;margin-bottom: 0rem;font-size:2vw"><?php echo $_SESSION[username]; ?>'s Profile</p>
+      <p class="text-center" style="color:#ffc107;margin-bottom: 0rem;font-size:2vw"><?php echo $_SESSION['username']; ?>'s Profile</p>
       <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
 
       <?php
@@ -94,7 +94,7 @@ try {
                   $like->execute();
                   $totallikes = $like->fetchColumn();
                   $isliker = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE username = :liker AND picture_id = :lphoto');
-                  $isliker->bindParam(':liker', $_SESSION[username], PDO::PARAM_STR);
+                  $isliker->bindParam(':liker', $_SESSION['username'], PDO::PARAM_STR);
                   $isliker->bindParam(':lphoto', $data['picture'], PDO::PARAM_STR);
                   $isliker->execute();
                   $liker = $isliker->fetchColumn();

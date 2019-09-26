@@ -2,8 +2,8 @@
 	session_start();
 	// if(session_status() == PHP_SESSION_ACTIVE)
 	// 	session_regenerate_id();
-  $_SESSION[page] = "login";
-	if (!empty($_SESSION[username]))
+  $_SESSION['page'] = "login";
+	if (!empty($_SESSION['username']))
 		header("Location: ./index.php");
   	// include_once "views/header.php";
 ?>

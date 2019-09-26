@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	include './config/database.php';
-	$_SESSION[page] = "public";
+	$_SESSION['page'] = "public";
 	try {
 	  $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 	  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -46,7 +46,7 @@
 			min-height:58px;
 		}
 		.heighminp {
-			<?php if (empty($_SESSION[username])) {?>
+			<?php if (empty($_SESSION['username'])) {?>
 			min-height:138px;
 			<?php } else { ?>
 			min-height:218px;
@@ -59,7 +59,7 @@
 		}
 		@media only screen and (max-width: 992px) {
 			.heighminp {
-				<?php if (empty($_SESSION[username])) {?>
+				<?php if (empty($_SESSION['username'])) {?>
 				min-height:138px;
 				<?php } else { ?>
 				min-height:218px;
@@ -102,7 +102,7 @@
 									$like->execute();
 									$totallikes = $like->fetchColumn();
 									$isliker = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE username = :liker AND picture_id = :lphoto');
-									$isliker->bindParam(':liker', $_SESSION[username], PDO::PARAM_STR);
+									$isliker->bindParam(':liker', $_SESSION['username'], PDO::PARAM_STR);
 									$isliker->bindParam(':lphoto', $data['picture'], PDO::PARAM_STR);
 									$isliker->execute();
 									$liker = $isliker->fetchColumn();
@@ -220,11 +220,7 @@
 	}
 
 	function like(post) {
-		// console.log('likebtn_'+post);
-
-		// var comment = document.getElementById(post).value;
 		var str = post;
-		// console.log(comment);
 		if (str.trim().length == 0) {
 			return false;
 		}

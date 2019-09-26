@@ -5,12 +5,12 @@
     header("Location: ../index.php");
     exit();
   }
-  if (empty($_SESSION[username])) {
+  if (empty($_SESSION['username'])) {
     header("Location: ../login.php?status=Please login to make comments and likes");
     exit();
   }
   if(!empty($_POST['cpicture']) && !empty($_POST['ccontent'])) {
-    if (!empty($_SESSION[username])  && strlen($_POST['ccontent']) <= 255) {
+    if (!empty($_SESSION['username'])  && strlen($_POST['ccontent']) <= 255) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -43,7 +43,7 @@
             // Send mail notification
             $subject = "User Notification";
             $headers = 'From: <nhamid@student.1337.ma>';
-            $message = 'Hello ' . $who . ", " . $_SESSION[username] . ' has just left a comment on one of your pictures.';
+            $message = 'Hello ' . $who . ", " . $_SESSION['username'] . ' has just left a comment on one of your pictures.';
             if ($mailinfos['notification'] == 'Y')
               mail($whomail, $subject, $message, $headers);
             //-----------------------

@@ -5,12 +5,12 @@
     header("Location: ../index.php");
     exit();
   }
-  if (empty($_SESSION[username])) {
+  if (empty($_SESSION['username'])) {
     echo "not logged";
     exit();
   }
   if(!empty($_POST['lpicture'])) {
-    if (!empty($_SESSION[username])) {
+    if (!empty($_SESSION['username'])) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -28,7 +28,7 @@
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = $dbh->prepare('SELECT COUNT(*) FROM likes WHERE username = :liker AND picture_id = :lpic');
-        $query->bindParam(':liker', $_SESSION[username], PDO::PARAM_STR);
+        $query->bindParam(':liker', $_SESSION['username'], PDO::PARAM_STR);
         $query->bindParam(':lpic', $_POST['lpicture'], PDO::PARAM_STR);
         $query->execute();
       } catch (PDOException $e) {
@@ -40,7 +40,7 @@
           $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
           $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $query = $dbh->prepare("INSERT INTO likes (username, picture_id) VALUES (:luname, :lpicture)");
-          $query->bindParam(':luname', $_SESSION[username], PDO::PARAM_STR);
+          $query->bindParam(':luname', $_SESSION['username'], PDO::PARAM_STR);
           $query->bindParam(':lpicture', $_POST['lpicture'], PDO::PARAM_STR);
           $query->execute();
           echo "like";
@@ -63,7 +63,7 @@
               // Send mail notification
               $subject = "User Notification";
               $headers = 'From: <nhamid@student.1337.ma>';
-              $message = 'Hello ' . $maildata['username'] . ", " . $_SESSION[username] . ' has just liked one of your pictures.';
+              $message = 'Hello ' . $maildata['username'] . ", " . $_SESSION['username'] . ' has just liked one of your pictures.';
               // if ($maildata['notification'] == 'Y')
               //   mail($whomail, $subject, $message, $headers);
               //-----------------------
@@ -87,7 +87,7 @@
           $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
           $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $query = $dbh->prepare("DELETE FROM likes WHERE  username = :luname AND picture_id = :lpicture");
-          $query->bindParam(':luname', $_SESSION[username], PDO::PARAM_STR);
+          $query->bindParam(':luname', $_SESSION['username'], PDO::PARAM_STR);
           $query->bindParam(':lpicture', $_POST['lpicture'], PDO::PARAM_STR);
           $query->execute();
           echo "dislike";

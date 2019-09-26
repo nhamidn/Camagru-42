@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../config/database.php';
-if (empty($_SESSION[username])) {
+if (empty($_SESSION['username'])) {
   header("Location: ../login.php?status=Please login to access this page");
   exit();
 }
@@ -28,7 +28,7 @@ if ($query->fetchColumn()) {
     $query->execute();
     $data = $query->fetch();
     // echo $data['username'];
-    if ($data['username'] == $_SESSION[username]) {
+    if ($data['username'] == $_SESSION['username']) {
       $query = $dbh->prepare("DELETE FROM posts WHERE picture = :dpic");
       $query->bindParam(':dpic', $_POST['montage'], PDO::PARAM_STR);
       $query->execute();
@@ -40,8 +40,8 @@ if ($query->fetchColumn()) {
     exit();
   }
 }
-if ($_SESSION[page] == "profile")
+if ($_SESSION['page'] == "profile")
   header("Location: ../users/profile.php");
-else if ($_SESSION[page] == "camera")
+else if ($_SESSION['page'] == "camera")
   header("Location: ../camera.php");
 ?>

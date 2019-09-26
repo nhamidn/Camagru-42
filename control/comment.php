@@ -5,12 +5,12 @@
     header("Location: ../index.php");
     exit();
   }
-  if (empty($_SESSION[username])) {
+  if (empty($_SESSION['username'])) {
     header("Location: ../login.php?status=Please login to make comments and likes");
     exit();
   }
   if(!empty($_POST['cpicture']) && !empty($_POST['ccontent'])) {
-    if (!empty($_SESSION[username]) && strlen($_POST['ccontent']) <= 255) {
+    if (!empty($_SESSION['username']) && strlen($_POST['ccontent']) <= 255) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
         $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -26,7 +26,7 @@
           $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
           $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $query = $dbh->prepare("INSERT INTO comments (username, picture_id, comment) VALUES (:cuname, :cpicture, :content)");
-          $query->bindParam(':cuname', $_SESSION[username], PDO::PARAM_STR);
+          $query->bindParam(':cuname', $_SESSION['username'], PDO::PARAM_STR);
           $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
           $query->bindParam(':content', htmlspecialchars($_POST['ccontent']), PDO::PARAM_STR);
           $query->execute();
@@ -43,7 +43,7 @@ try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $query = $dbh->prepare('SELECT * FROM posts WHERE username = :uname ORDER BY id DESC');
-  $query->bindParam(':uname', $_SESSION[username], PDO::PARAM_STR);
+  $query->bindParam(':uname', $_SESSION['username'], PDO::PARAM_STR);
   $query->execute();
 } catch (PDOException $e) {
   echo 'Error: '.$e->getMessage();
@@ -76,7 +76,7 @@ try {
               $like->execute();
               $totallikes = $like->fetchColumn();
               $isliker = $newdbh->prepare('SELECT COUNT(*) FROM likes WHERE username = :liker AND picture_id = :lphoto');
-              $isliker->bindParam(':liker', $_SESSION[username], PDO::PARAM_STR);
+              $isliker->bindParam(':liker', $_SESSION['username'], PDO::PARAM_STR);
               $isliker->bindParam(':lphoto', $data['picture'], PDO::PARAM_STR);
               $isliker->execute();
               $liker = $isliker->fetchColumn();
