@@ -1,6 +1,10 @@
 <?php
   session_start();
   include '../config/database.php';
+  if (empty($_POST['cpicture']) && empty($_POST['ccontent'])) {
+    header("Location: ../index.php");
+    exit();
+  }
   if (empty($_SESSION[username])) {
     ?>
     <?php include_once "../views/header.php"; ?>

@@ -1,6 +1,10 @@
 <?php
   session_start();
   include '../config/database.php';
+  if (empty($_POST['lpicture'])) {
+    header("Location: ../index.php");
+    exit();
+  }
   if (empty($_SESSION[username])) {
     echo "not logged";
     exit();

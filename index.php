@@ -1,24 +1,16 @@
 <?php
 	session_start();
 	include './config/database.php';
-	// if(session_status() == PHP_SESSION_ACTIVE)
-  //   session_regenerate_id();
-	// session_regenerate_id();
 	$_SESSION[page] = "public";
 	try {
 	  $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 	  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	  $query = $dbh->prepare('SELECT * FROM posts ORDER BY id DESC');
+	  $query = $dbh->prepare('SELECT * FROM posts ORDER BY id DESC LIMIT 100');
 	  $query->execute();
 	} catch (PDOException $e) {
 	  echo 'Error: '.$e->getMessage();
 	  exit();
 	}
-	// $_SESSION[username] = null;
-	// echo session_id();
-	// if (empty($_SESSION[username]))
-	// 	header('Location: /login.php');
-	// include_once "views/header.php";
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -158,11 +150,43 @@
 
 		</div>
 
+			<nav aria-label="Page navigation example">
+  			<ul class="pagination justify-content-center">
+    			<li class="page-item" style="color:blue"><a class="page-link" onclick="previous();">Previous</a></li>
+    			<li class="page-item" style="color:blue"><a class="page-link" onclick="next();">Next</a></li>
+  			</ul>
+			</nav>
+
 		<?php include_once "./views/footer.php"; ?>
 	</body>
 	<script type="text/javascript">
-	function comment(post)
-	{
+	var page = 5;
+	function next() {
+		console.log("next");
+		console.log(page);
+		page += 5;
+		console.log(page);
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("body").innerHTML = this.responseText;
+				}
+		};
+		var params = "number=" + page;
+		xhttp.open('POST', 'http://localhost/control/pagination.php');
+		xhttp.withCredentials = true;
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(params);
+	}
+
+	function previous() {
+		console.log("previous");
+		console.log(page);
+		page -= 5;
+		console.log(page);
+	}
+
+	function comment(post) {
 		// console.log(post);
 		var comment = document.getElementById(post).value;
 		var str = comment;
@@ -194,8 +218,8 @@
 		document.getElementById(post).value = "";
 
 	}
-	function like(post)
-	{
+
+	function like(post) {
 		// console.log('likebtn_'+post);
 
 		// var comment = document.getElementById(post).value;
