@@ -54,7 +54,7 @@
 		}
 		</style>
 		<?php
-		if ($_GET['p'] == "2") {
+		if (!empty($_GET['p']) == "2") {
 			?>
 			<script type="text/javascript">
 				var xhttp = new XMLHttpRequest();
@@ -75,7 +75,7 @@
   <body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
 		<div id="errtext" class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
-					<?php if ($_GET['status']) echo $_GET['status']; ?>
+					<?php if (!empty($_GET['status'])) echo $_GET['status']; ?>
 		</div>
 		<div id="page-content" class="card border-0 justify-content-center">
 			<div id="justify">

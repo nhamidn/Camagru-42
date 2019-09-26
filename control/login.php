@@ -8,7 +8,7 @@ if (empty($_POST["luname"]) || empty($_POST["lpass"])) {
 }
 else {
   $who = strtolower(trim($_POST["luname"]));
-  $pass = hash(Whirlpool, $_POST["lpass"]);
+  $pass = hash('Whirlpool', $_POST["lpass"]);
   try {
     $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -33,7 +33,7 @@ else {
           $_SESSION['user_mail'] = $data['email'];
           $_SESSION['username'] = $who;
           $_SESSION['user_id'] = $data['id'];
-          $_SESSION['logout'] = hash(Whirlpool, bin2hex(uniqid($_SESSION['username'], true)));
+          $_SESSION['logout'] = hash('Whirlpool', bin2hex(uniqid($_SESSION['username'], true)));
           header("Location: ../index.php");
         } else {
           header("Location: ../login.php?status=Account not activated yet !");

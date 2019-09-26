@@ -13,6 +13,7 @@ if (empty($_POST['montage']) && empty($_POST['filter'])) {
   header("Location: ../camera.php");
   exit();
 }
+$usern = $_SESSION['username'];
 $upload_dir = "../images/";
 $name = md5(uniqid($usern, true));
 $img = $_POST['montage'];

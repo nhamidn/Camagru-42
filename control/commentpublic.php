@@ -68,12 +68,13 @@
       }
       if ($query->fetchColumn()) {
         try {
+          $content = htmlspecialchars($_POST['ccontent']);
           $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
           $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $query = $dbh->prepare("INSERT INTO comments (username, picture_id, comment) VALUES (:cuname, :cpicture, :content)");
           $query->bindParam(':cuname', $_SESSION['username'], PDO::PARAM_STR);
           $query->bindParam(':cpicture', $_POST['cpicture'], PDO::PARAM_STR);
-          $query->bindParam(':content', htmlspecialchars($_POST['ccontent']), PDO::PARAM_STR);
+          $query->bindParam(':content', $content, PDO::PARAM_STR);
           $query->execute();
         } catch (PDOException $e) {
           echo 'Error: '.$e->getMessage();
@@ -108,7 +109,9 @@ try {
   <main style="margin-top:15px" id="posts_list">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="card card-body col-md-6 bg-light">
+        <div class="card card-body col-md-6 bg-light shadow">
+          <p class="bg-light" style="color:black;margin-bottom: 0rem;margin-top: 0rem;font-size:1.5vw"><strong><?php echo $data['username']; ?></strong></p>
+          <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
           <img class="img-fluid border rounded-top" <?php echo "src='../images/".$data['picture'].".png'" ?> ></img>
           <div class="cardbox-comments mt-2">
             <textarea id="<?php echo $data['picture'];?>" class="form-control w-100 mb-2" placeholder="write a comment..." rows="1" style="resize: none;"></textarea>
@@ -162,4 +165,4 @@ try {
   </main>
   <?php } ?>
 </div>
-<?php include_once "./views/footer.php"; ?>
+<?php include_once "../views/footer.php"; ?>

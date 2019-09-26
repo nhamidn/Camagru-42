@@ -71,7 +71,7 @@
   <body class="d-flex flex-column">
 		<?php include_once "views/header.php"; ?>
 		<div id="errtext" class="justify-content-center align-self-center" style="text-align:center;padding: 10px 0; color: red; -webkit-text-stroke-width: thin;">
-					<?php if ($_GET[error]) echo $_GET[error]; ?>
+					<?php if (!empty($_GET['error'])) echo $_GET['error']; ?>
 		</div>
 		<div id="page-content" class="card border-0 justify-content-center">
 			<div id="justify">

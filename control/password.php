@@ -62,7 +62,7 @@ if (!empty($_SESSION['token']) || !empty($_SESSION['username'])) {
       exit();
     }
   } else {
-    $pass = hash(Whirlpool, $_POST["rpass"]);
+    $pass = hash('Whirlpool', $_POST["rpass"]);
     if (!empty($_SESSION['token'])) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);

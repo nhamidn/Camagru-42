@@ -52,7 +52,7 @@ else {
         }
       }
       $usern = $_POST["runame"];
-      $pass = hash(Whirlpool, $_POST["rpass"]);
+      $pass = hash('Whirlpool', $_POST["rpass"]);
       $token = uniqid($usern, true);
       try {
         $query = $dbh->prepare("INSERT INTO users (username, email, password, token) VALUES (:runame, :rmail, :rpassword, :rtoken)");

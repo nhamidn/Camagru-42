@@ -159,7 +159,7 @@
 
 </div>
 		</div>
-		<script type="text/javascript" src="cam.js"></script>
+		<script type="text/javascript" src="./js/cam.js"></script>
 		<script type="text/javascript">
     function ShowImagePreview(files) {
 			if(!(window.File && window.FileReader && window.FileList && window.Blob)) {
