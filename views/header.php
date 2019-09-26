@@ -1,6 +1,6 @@
 <?php
-  include '../config/database.php';
-  session_start();
+  // include '../config/database.php';
+  // session_start();
   if (empty($_SESSION['username']))
   {
 ?>
