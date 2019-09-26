@@ -5,7 +5,7 @@
 	try {
 	  $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 	  $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = $dbh->prepare('SELECT COUNT(*) FROM posts ORDER BY id DESC LIMIT 5');
+		$query = $dbh->prepare('SELECT COUNT(*) FROM posts ORDER BY id DESC');
 	  $query->execute();
 		$postlen = $query->fetchColumn();
 
@@ -155,7 +155,7 @@
 		</div>
 
 			<nav aria-label="Page navigation example">
-  			<ul class="pagination justify-content-center">
+  			<ul class="pagination justify-content-center" style="margin-top: 1rem;">
     			<li class="page-item" style="color:blue"><a id="precedent" class="page-link" onclick="previous();">Previous</a></li>
     			<li class="page-item" style="color:blue"><a class="page-link" onclick="next();">Next</a></li>
   			</ul>
@@ -167,33 +167,57 @@
 	var page = 5;
 	var total = <?php echo $postlen; ?>;
 	function next() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("page-content").innerHTML = this.responseText;
+				}
+		};
 		var diff = total - page;
-		var load;
 		if (diff >= 5) {
-			load = 5;
+			page += 5;
+			var params = "number=" + page;
+		} else if (diff < 5 && diff > 0){
+			page += 5;
+			var params = "number=" + page;
 		} else {
-			load = diff;
+			return false;
 		}
-		console.log(load);
-		// var xhttp = new XMLHttpRequest();
-		// xhttp.onreadystatechange = function() {
-		// 	if (this.readyState == 4 && this.status == 200) {
-		// 		document.getElementById("body").innerHTML = this.responseText;
-		// 		}
-		// };
-		// var params = "number=" + page;
-		// xhttp.open('POST', 'http://localhost/control/pagination.php');
-		// xhttp.withCredentials = true;
-		// xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		// xhttp.send(params);
+		xhttp.open('POST', 'http://localhost/control/pagination.php');
+		xhttp.withCredentials = true;
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(params);
+		scrollToTop(500);
 	}
 
 	function previous() {
-		console.log("previous");
-		console.log(page);
-		if (page > 5)
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				document.getElementById("page-content").innerHTML = this.responseText;
+				}
+		};
+		if (page > 5) {
 			page -= 5;
-		console.log(page);
+			var params = "number=" + page;
+			xhttp.open('POST', 'http://localhost/control/pagination.php');
+			xhttp.withCredentials = true;
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send(params);
+			scrollToTop(500);
+		} if (page == 5 || page < 5) {
+			return false;
+		}
+	}
+
+	function scrollToTop(scrollDuration) {
+    var scrollStep = -window.scrollY / (scrollDuration / 15),
+        scrollInterval = setInterval(function(){
+        if ( window.scrollY != 0 ) {
+            window.scrollBy( 0, scrollStep );
+        }
+        else clearInterval(scrollInterval);
+    },15);
 	}
 
 	function comment(post) {
@@ -213,7 +237,7 @@
 					document.getElementById("body").innerHTML = this.responseText;
 					}
 			};
-			var params = "cpicture=" + post + "&ccontent=" + comment;
+			var params = "cpicture=" + post + "&ccontent=" + comment + "&page=" + page;
 			xhttp.open('POST', 'http://localhost/control/commentpublic.php');
 			xhttp.withCredentials = true;
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");

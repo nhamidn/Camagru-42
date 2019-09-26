@@ -1,7 +1,7 @@
 <?php
   session_start();
   include '../config/database.php';
-  if (empty($_POST['cpicture']) && empty($_POST['ccontent'])) {
+  if (empty($_POST['cpicture']) && empty($_POST['ccontent']) && empty($_POST['page'])) {
     header("Location: ../index.php");
     exit();
   }
@@ -55,6 +55,7 @@
   if(!empty($_POST['cpicture']) && !empty($_POST['ccontent'])) {
     // $comm = $_POST['ccontent']
     // $len = $comm;
+
     if (!empty($_SESSION['username']) && strlen($_POST['ccontent']) <= 255) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
@@ -87,10 +88,13 @@
 
 ?>
 <?php
+$page = (int)$_POST['page'];
+$posts = $page - 5;
 try {
   $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $query = $dbh->prepare('SELECT * FROM posts ORDER BY id DESC');
+  $query = $dbh->prepare('SELECT * FROM posts ORDER BY id DESC LIMIT :num');
+  $query->bindParam(':num', $page, PDO::PARAM_INT);
   $query->execute();
 } catch (PDOException $e) {
   echo 'Error: '.$e->getMessage();
@@ -104,7 +108,9 @@ try {
   <hr style="margin-top: 0rem;margin-bottom: 0.5rem;">
   <?php
   $data = array();
+  $indice = 0;
   while ($data = $query->fetch(PDO::FETCH_ASSOC)) {
+    if ($indice >= $posts) {
     ?>
   <main style="margin-top:15px" id="posts_list">
     <div class="container">
@@ -163,6 +169,14 @@ try {
       </div>
     </div>
   </main>
-  <?php } ?>
+  <?php } $indice++; } ?>
 </div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center" style="margin-top: 1rem;">
+    <li class="page-item" style="color:blue"><a id="precedent" class="page-link" onclick="previous();">Previous</a></li>
+    <li class="page-item" style="color:blue"><a class="page-link" onclick="next();">Next</a></li>
+  </ul>
+</nav>
+
 <?php include_once "../views/footer.php"; ?>
