@@ -6,9 +6,8 @@ try {
   // Connect to Mysql server
   $dbh = new PDO("mysql:host=$HOST", $DB_USER, $DB_PASSWORD);
   $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "CREATE DATABASE `".$DB_NAME."`";
+  $sql = "CREATE DATABASE IF NOT EXISTS `".$DB_NAME."`";
   $dbh->exec($sql);
-  echo "Database created successfully<br>";
   } catch (PDOException $e) {
     echo "ERROR CREATING DB: \n".$e->getMessage()."\nAborting process<br>";
     // die();
