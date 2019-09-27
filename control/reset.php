@@ -50,7 +50,7 @@ if (empty($_POST["eemail"])) {
         }
 
       } else {
-        header("Location: ../reset.php?error=Account not activated yet !");
+        header("Location: ../login.php?status=Account not activated yet !&p=2");
         exit();
       }
 
@@ -59,7 +59,7 @@ if (empty($_POST["eemail"])) {
       exit;
     }
   } else {
-    header("Location: ../reset.php?error=No account using this email address !");
+    header("Location: ../login.php?status=No account using this email address !&p=2");
     exit();
   }
 }
