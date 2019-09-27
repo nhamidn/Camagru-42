@@ -1,11 +1,8 @@
 <?php
 session_start();
 include '../config/database.php';
-if (empty($_SESSION['username'])) {
-  exit();
-}
+
 if (!empty($_POST['number'])) {
-  echo $_POST['number'];
     $posts = (int)$_POST['number'];
     $number = $posts - 5;
     try {

@@ -221,10 +221,8 @@
 	}
 
 	function comment(post) {
-		// console.log(post);
 		var comment = document.getElementById(post).value;
 		var str = comment;
-		// console.log(comment);
 		if (str.trim().length == 0) {
 			document.getElementById(post).value = "";
 			return false;
@@ -242,12 +240,14 @@
 			xhttp.withCredentials = true;
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhttp.send(params);
+			<?php if (!empty($_SESSION['username'])) { ?>
 			var xmail = new XMLHttpRequest();
 			var paramsmail = "cpicture=" + post + "&ccontent=" + comment;
 			xmail.open('POST', 'http://localhost/control/commentmail.php');
 			xmail.withCredentials = true;
 			xmail.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xmail.send(paramsmail);
+			<?php } ?>
 		}
 		document.getElementById(post).value = "";
 

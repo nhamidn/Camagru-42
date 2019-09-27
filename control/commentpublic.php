@@ -53,9 +53,6 @@
     exit();
   }
   if(!empty($_POST['cpicture']) && !empty($_POST['ccontent'])) {
-    // $comm = $_POST['ccontent']
-    // $len = $comm;
-
     if (!empty($_SESSION['username']) && strlen($_POST['ccontent']) <= 255) {
       try {
         $dbh = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
